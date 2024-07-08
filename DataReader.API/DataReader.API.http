@@ -1,0 +1,6 @@
+@DataReader.API_HostAddress = http://localhost:5210
+
+GET {{DataReader.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
