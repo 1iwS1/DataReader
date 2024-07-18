@@ -1,14 +1,17 @@
 ﻿using CSharpFunctionalExtensions;
 
+using DataReader.Core.ValueObjects;
+
+
 namespace DataReader.Core.Models
 {
   public class Project
   {
     private Project(
-      Guid projectSK,
-      Guid projectId,
+      DataReaderGuid projectSK,
+      DataReaderGuid projectId,
       string projectName,
-      string analyticsUpdatedDate,
+      AnalyticsUpdatedDate analyticsUpdatedDate,
       string projectVisibility
       )
     {
@@ -19,17 +22,17 @@ namespace DataReader.Core.Models
       ProjectVisibility = projectVisibility;
     }
 
-    public Guid? ProjectSK {  get; }
-    public Guid? ProjectID { get; }
+    public DataReaderGuid ProjectSK {  get; }
+    public DataReaderGuid ProjectID { get; }
     public string? ProjectName {  get; }
-    public string? AnalyticsUpdatedDate { get; }
+    public AnalyticsUpdatedDate AnalyticsUpdatedDate { get; }
     public string? ProjectVisibility { get; }
 
     public static Result<Project> Create(
-      Guid projectSK,
-      Guid projectId,
+      DataReaderGuid projectSK,
+      DataReaderGuid projectId,
       string projectName,
-      string analyticsUpdatedDate,
+      AnalyticsUpdatedDate analyticsUpdatedDate,
       string projectVisibility
       )
     {

@@ -1,26 +1,27 @@
 ﻿using CSharpFunctionalExtensions;
 using System.Text.RegularExpressions;
 
-namespace DataReader.Core.ValueObjects.User
+
+namespace DataReader.Core.ValueObjects
 {
-    public class UserGuid : ValueObject
+    public class DataReaderGuid : ValueObject
     {
         private const string REGEX_FOR_GUID = "";
         public Guid? UserG { get; }
 
-        private UserGuid(Guid userG)
+        private DataReaderGuid(Guid userG)
         {
             UserG = userG;
         }
 
-        public static Result<UserGuid> Create(Guid userG)
+        public static Result<DataReaderGuid> Create(Guid userG)
         {
             if (!Regex.IsMatch(userG.ToString(), REGEX_FOR_GUID))
             {
-                return Result.Failure<UserGuid>($"'{nameof(userG)}' must be Guid");
+                return Result.Failure<DataReaderGuid>($"'{nameof(userG)}' must be Guid");
             }
 
-            return new UserGuid(userG);
+            return new DataReaderGuid(userG);
         }
 
         protected override IEnumerable<IComparable?> GetEqualityComponents()

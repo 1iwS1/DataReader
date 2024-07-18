@@ -1,6 +1,7 @@
 ﻿using CSharpFunctionalExtensions;
 using System.Text.RegularExpressions;
 
+
 namespace DataReader.Core.ValueObjects.User
 {
     public class UserEmail : ValueObject

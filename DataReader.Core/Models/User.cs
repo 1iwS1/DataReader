@@ -1,13 +1,16 @@
 ﻿using CSharpFunctionalExtensions;
+
+using DataReader.Core.ValueObjects;
 using DataReader.Core.ValueObjects.User;
+
 
 namespace DataReader.Core.Models
 {
     public class User
     {
         private User(
-          UserGuid userSK,
-          UserGuid userId,
+          DataReaderGuid userSK,
+          DataReaderGuid userId,
           UserName userName,
           UserEmail userEmail,
           AnalyticsUpdatedDate analyticsUpdatedDate,
@@ -24,8 +27,8 @@ namespace DataReader.Core.Models
             UserType = userType;
         }
 
-        private UserGuid UserSK { get; }
-        private UserGuid UserId { get; }
+        private DataReaderGuid UserSK { get; }
+        private DataReaderGuid UserId { get; }
         private UserName UserName { get; }
         private UserEmail UserEmail { get; }
         private AnalyticsUpdatedDate AnalyticsUpdatedDate { get; }
@@ -33,8 +36,8 @@ namespace DataReader.Core.Models
         private string? UserType { get; } = string.Empty;
 
         public static Result<User> Create(
-          UserGuid userSK,
-          UserGuid userId,
+          DataReaderGuid userSK,
+          DataReaderGuid userId,
           UserName userName,
           UserEmail userEmail,
           AnalyticsUpdatedDate analyticsUpdatedDate,

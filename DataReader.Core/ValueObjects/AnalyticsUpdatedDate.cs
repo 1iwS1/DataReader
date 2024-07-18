@@ -1,7 +1,8 @@
-﻿using CSharpFunctionalExtensions;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
+using CSharpFunctionalExtensions;
 
-namespace DataReader.Core.ValueObjects.User
+
+namespace DataReader.Core.ValueObjects
 {
     public class AnalyticsUpdatedDate : ValueObject
     {
