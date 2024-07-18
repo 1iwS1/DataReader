@@ -1,5 +1,7 @@
 ﻿using CSharpFunctionalExtensions;
+
 using DataReader.Core.ValueObjects;
+
 
 namespace DataReader.Core.Models
 {
