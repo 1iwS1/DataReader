@@ -6,7 +6,7 @@ namespace DataReader.Core.ValueObjects
 {
   public class AnalyticsUpdatedDate : ValueObject
   {
-    private const string REGEX_FOR_DATE = "";
+    private const string REGEX_FOR_DATE = "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$";
     public string? Date { get; }
 
     private AnalyticsUpdatedDate(string date)
