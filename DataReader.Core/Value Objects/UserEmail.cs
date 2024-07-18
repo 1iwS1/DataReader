@@ -15,9 +15,9 @@ namespace DataReader.Core.Value_Objects
 
     public static Result<UserEmail> Create(string email)
     {
-      if (Regex.IsMatch(email, REGEX_FOR_EMAIL))
+      if (!Regex.IsMatch(email, REGEX_FOR_EMAIL))
       {
-        Result.Failure($"'{nameof(email)}' must be email");
+        return Result.Failure<UserEmail>($"'{nameof(email)}' must be email");
       }
 
       return new UserEmail(email);

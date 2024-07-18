@@ -18,12 +18,12 @@ namespace DataReader.Core.Value_Objects
     {
       if (name.Length > MAX_USERNAME_LENGHT)
       {
-        Result.Failure($"'{nameof(name)}' can't be more than {MAX_USERNAME_LENGHT}");
+        return Result.Failure<UserName>($"'{nameof(name)}' can't be more than {MAX_USERNAME_LENGHT}");
       }
       
-      if (Regex.IsMatch(name, REGEX_FOR_NAME))
+      if (!Regex.IsMatch(name, REGEX_FOR_NAME))
       {
-        Result.Failure($"'{nameof(name)}' must not contain numbers");
+        return Result.Failure<UserName>($"'{nameof(name)}' must not contain numbers");
       }
 
       return new UserName(name);

@@ -9,8 +9,8 @@ namespace DataReader.Core.Models
           Guid userSK,
           Guid userId,
           UserName userName,
-          string userEmail,
-          DateTime analyticsUpdatedDate,
+          UserEmail userEmail,
+          AnalyticsUpdatedDate analyticsUpdatedDate,
           Guid gitHubUserId,
           string userType
           )
@@ -27,8 +27,8 @@ namespace DataReader.Core.Models
         private Guid? UserSK { get; } // VO
         private Guid? UserId { get; } // VO
         private UserName UserName { get; }
-        private string? UserEmail { get; } = string.Empty; // VO
-        private DateTime? AnalyticsUpdatedDate { get; } // VO
+        private UserEmail UserEmail { get; }
+        private AnalyticsUpdatedDate AnalyticsUpdatedDate { get; }
         private Guid? GitHubUserId { get; } = null;
         private string? UserType { get; } = string.Empty;
 
@@ -36,8 +36,8 @@ namespace DataReader.Core.Models
           Guid userSK,
           Guid userId,
           UserName userName,
-          string userEmail,
-          DateTime analyticsUpdatedDate,
+          UserEmail userEmail,
+          AnalyticsUpdatedDate analyticsUpdatedDate,
           Guid gitHubUserId,
           string userType
           )
