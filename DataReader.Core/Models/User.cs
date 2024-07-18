@@ -1,4 +1,5 @@
 ﻿using CSharpFunctionalExtensions;
+using DataReader.Core.Value_Objects;
 
 namespace DataReader.Core.Models
 {
@@ -7,7 +8,7 @@ namespace DataReader.Core.Models
         private User(
           Guid userSK,
           Guid userId,
-          string userName,
+          UserName userName,
           string userEmail,
           DateTime analyticsUpdatedDate,
           Guid gitHubUserId,
@@ -25,7 +26,7 @@ namespace DataReader.Core.Models
 
         private Guid? UserSK { get; } // VO
         private Guid? UserId { get; } // VO
-        private string? UserName { get; } = string.Empty; // VO
+        private UserName UserName { get; }
         private string? UserEmail { get; } = string.Empty; // VO
         private DateTime? AnalyticsUpdatedDate { get; } // VO
         private Guid? GitHubUserId { get; } = null;
