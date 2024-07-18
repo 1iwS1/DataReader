@@ -14,7 +14,7 @@ namespace DataReader.Core.Models
       UserName userName,
       UserEmail userEmail,
       AnalyticsUpdatedDate analyticsUpdatedDate,
-      Guid gitHubUserId,
+      DataReaderGuid gitHubUserId,
       string userType
       )
     {
@@ -32,7 +32,7 @@ namespace DataReader.Core.Models
     private UserName UserName { get; }
     private UserEmail UserEmail { get; }
     private AnalyticsUpdatedDate AnalyticsUpdatedDate { get; }
-    private Guid? GitHubUserId { get; } = null;
+    private DataReaderGuid GitHubUserId { get; }
     private string? UserType { get; } = string.Empty;
 
     public static Result<User> Create(
@@ -41,7 +41,7 @@ namespace DataReader.Core.Models
       UserName userName,
       UserEmail userEmail,
       AnalyticsUpdatedDate analyticsUpdatedDate,
-      Guid gitHubUserId,
+      DataReaderGuid gitHubUserId,
       string userType
       )
     {
