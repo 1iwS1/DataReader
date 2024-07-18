@@ -35,7 +35,7 @@ namespace DataReader.Core.Models
         public static Result<User> Create(
           Guid userSK,
           Guid userId,
-          string userName,
+          UserName userName,
           string userEmail,
           DateTime analyticsUpdatedDate,
           Guid gitHubUserId,
