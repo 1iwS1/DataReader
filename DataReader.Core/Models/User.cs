@@ -6,8 +6,8 @@ namespace DataReader.Core.Models
     public class User
     {
         private User(
-          Guid userSK,
-          Guid userId,
+          UserGuid userSK,
+          UserGuid userId,
           UserName userName,
           UserEmail userEmail,
           AnalyticsUpdatedDate analyticsUpdatedDate,
@@ -24,8 +24,8 @@ namespace DataReader.Core.Models
             UserType = userType;
         }
 
-        private Guid? UserSK { get; } // VO
-        private Guid? UserId { get; } // VO
+        private UserGuid UserSK { get; }
+        private UserGuid UserId { get; }
         private UserName UserName { get; }
         private UserEmail UserEmail { get; }
         private AnalyticsUpdatedDate AnalyticsUpdatedDate { get; }
@@ -33,8 +33,8 @@ namespace DataReader.Core.Models
         private string? UserType { get; } = string.Empty;
 
         public static Result<User> Create(
-          Guid userSK,
-          Guid userId,
+          UserGuid userSK,
+          UserGuid userId,
           UserName userName,
           UserEmail userEmail,
           AnalyticsUpdatedDate analyticsUpdatedDate,
