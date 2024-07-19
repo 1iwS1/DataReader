@@ -85,7 +85,7 @@ namespace DataReader.Core.Models
     public WorkItemTypeEnum WorkItemType { get; }
     public AnalyticsUpdatedDate ChangedDate { get; }
     public AnalyticsUpdatedDate CreatedDate { get; }
-    public string? State { get; } // может enum?
+    public StateEnum State { get; }
     public AnalyticsUpdatedDate ActivatedDate { get; }
     public AnalyticsUpdatedDate ClosedDate { get; }
     public int? Priority { get; }

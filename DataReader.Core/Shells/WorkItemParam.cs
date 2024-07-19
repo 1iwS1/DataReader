@@ -13,7 +13,7 @@ namespace DataReader.Core.Shells
       DataReaderGuid resolvedByUserSK,  string activatedDateSK,               string changedDateSK,
       string сlosedDateSK,              string createdDateSK,                 string resolvedDateSK,
       string stateChangeDateSK,         WorkItemTypeEnum workItemType,        AnalyticsUpdatedDate changedDate,
-      AnalyticsUpdatedDate createdDate, string state,                         AnalyticsUpdatedDate activatedDate,
+      AnalyticsUpdatedDate createdDate, StateEnum state,                         AnalyticsUpdatedDate activatedDate,
       AnalyticsUpdatedDate closedDate,  int priority,                         AnalyticsUpdatedDate resolvedDate,
       double completedWork,             string effort,                        AnalyticsUpdatedDate finishDate,
       string originalEstimate,          string remainingWork,                 string startDate,
