@@ -1,4 +1,5 @@
-﻿using DataReader.Core.ValueObjects;
+﻿using DataReader.Core.Enums;
+using DataReader.Core.ValueObjects;
 
 
 namespace DataReader.Core.Shells
@@ -11,7 +12,7 @@ namespace DataReader.Core.Shells
       DataReaderGuid createdByUserSK,   DataReaderGuid activatedByUserSK,     DataReaderGuid closedByUserSK,
       DataReaderGuid resolvedByUserSK,  string activatedDateSK,               string changedDateSK,
       string сlosedDateSK,              string createdDateSK,                 string resolvedDateSK,
-      string stateChangeDateSK,         string workItemType,                  AnalyticsUpdatedDate changedDate,
+      string stateChangeDateSK,         WorkItemTypeEnum workItemType,        AnalyticsUpdatedDate changedDate,
       AnalyticsUpdatedDate createdDate, string state,                         AnalyticsUpdatedDate activatedDate,
       AnalyticsUpdatedDate closedDate,  int priority,                         AnalyticsUpdatedDate resolvedDate,
       double completedWork,             string effort,                        AnalyticsUpdatedDate finishDate,

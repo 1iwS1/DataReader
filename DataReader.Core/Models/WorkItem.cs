@@ -1,5 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
 
+using DataReader.Core.Enums;
 using DataReader.Core.Shells;
 using DataReader.Core.ValueObjects;
 
@@ -81,7 +82,7 @@ namespace DataReader.Core.Models
     public string? CreatedDateSK { get; }
     public string? ResolvedDateSK { get; }
     public string? StateChangeDateSK { get; }
-    public string? WorkItemType { get; } // может enum?
+    public WorkItemTypeEnum WorkItemType { get; }
     public AnalyticsUpdatedDate ChangedDate { get; }
     public AnalyticsUpdatedDate CreatedDate { get; }
     public string? State { get; } // может enum?
