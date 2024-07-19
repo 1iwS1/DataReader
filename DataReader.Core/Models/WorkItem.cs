@@ -1,5 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
 
+using DataReader.Core.Shells;
 using DataReader.Core.ValueObjects;
 
 
@@ -7,74 +8,55 @@ namespace DataReader.Core.Models
 {
   public class WorkItem
   {
-    // может сделать объект-оболочку для параметров? WorkItemParamShell
-    private WorkItem(
-      int workItemId,                   AnalyticsUpdatedDate inProgressDate,  AnalyticsUpdatedDate completedDate,
-      string inProgressDateSK,          string completedDateSK,               AnalyticsUpdatedDate analyticsUpdatedDate,
-      DataReaderGuid projectSK,         int workItemRevisionSK,               DataReaderGuid areaSK, 
-      DataReaderGuid iterationSK,       DataReaderGuid assignedToUserSK,      DataReaderGuid changedByUserSK,
-      DataReaderGuid createdByUserSK,   DataReaderGuid activatedByUserSK,     DataReaderGuid closedByUserSK,
-      DataReaderGuid resolvedByUserSK,  string activatedDateSK,               string changedDateSK,
-      string сlosedDateSK,              string createdDateSK,                 string resolvedDateSK,
-      string stateChangeDateSK,         string workItemType,                  AnalyticsUpdatedDate changedDate,
-      AnalyticsUpdatedDate createdDate, string state,                         AnalyticsUpdatedDate activatedDate,
-      AnalyticsUpdatedDate closedDate,  int priority,                         AnalyticsUpdatedDate resolvedDate,
-      double completedWork,             string effort,                        AnalyticsUpdatedDate finishDate,
-      string originalEstimate,          string remainingWork,                 string startDate,
-      string storyPoints,               string targetDate,                    int parentWorkItemId,
-      string tagNames,                  AnalyticsUpdatedDate stateChangeDate, string custom_Company,
-      string custom_719f69f1__002Df7d0__002D4baa__002Db6ce__002De77ad5dfcdf3,
-      string custom_Eksternareferenca,  string custom_ITServiceorApplication, string custom_Statusprojekta,
-      string custom_TicketNo
-      )
+    private WorkItem(WorkItemParam shell)
     {
-      WorkItemId = workItemId;
-      InProgressDate = inProgressDate;
-      CompletedDate = completedDate;
-      InProgressDateSK = inProgressDateSK;
-      CompletedDateSK = completedDateSK;
-      AnalyticsUpdatedDate = analyticsUpdatedDate;
-      ProjectSK = projectSK;
-      WorkItemRevisionSK = workItemRevisionSK;
-      AreaSK = areaSK;
-      IterationSK = iterationSK;
-      AssignedToUserSK = assignedToUserSK;
-      ChangedByUserSK = changedByUserSK;
-      CreatedByUserSK = createdByUserSK;
-      ActivatedByUserSK = activatedByUserSK;
-      ClosedByUserSK = closedByUserSK;
-      ResolvedByUserSK = resolvedByUserSK;
-      ActivatedDateSK = activatedDateSK;
-      ChangedDateSK = changedDateSK;
-      ClosedDateSK = сlosedDateSK;
-      CreatedDateSK = createdDateSK;
-      ResolvedDateSK = resolvedDateSK;
-      StateChangeDateSK = stateChangeDateSK;
-      WorkItemType = workItemType;
-      ChangedDate = changedDate;
-      CreatedDate = createdDate;
-      State = state;
-      ActivatedDate = activatedDate;
-      ClosedDate = closedDate;
-      Priority = priority;
-      ResolvedDate = resolvedDate;
-      CompletedWork = completedWork;
-      Effort = effort;
-      FinishDate = finishDate;
-      OriginalEstimate = originalEstimate;
-      RemainingWork = remainingWork;
-      StartDate = startDate;
-      StoryPoints = storyPoints;
-      TargetDate = targetDate;
-      ParentWorkItemId = parentWorkItemId;
-      TagNames = tagNames;
-      StateChangeDate = stateChangeDate;
-      Custom_Company = custom_Company;
+      WorkItemId = shell.workItemId;
+      InProgressDate = shell.inProgressDate;
+      CompletedDate = shell.completedDate;
+      InProgressDateSK = shell.inProgressDateSK;
+      CompletedDateSK = shell.completedDateSK;
+      AnalyticsUpdatedDate = shell.analyticsUpdatedDate;
+      ProjectSK = shell.projectSK;
+      WorkItemRevisionSK = shell.workItemRevisionSK;
+      AreaSK = shell.areaSK;
+      IterationSK = shell.iterationSK;
+      AssignedToUserSK = shell.assignedToUserSK;
+      ChangedByUserSK = shell.changedByUserSK;
+      CreatedByUserSK = shell.createdByUserSK;
+      ActivatedByUserSK = shell.activatedByUserSK;
+      ClosedByUserSK = shell.closedByUserSK;
+      ResolvedByUserSK = shell.resolvedByUserSK;
+      ActivatedDateSK = shell.activatedDateSK;
+      ChangedDateSK = shell.changedDateSK;
+      ClosedDateSK = shell.сlosedDateSK;
+      CreatedDateSK = shell.createdDateSK;
+      ResolvedDateSK = shell.resolvedDateSK;
+      StateChangeDateSK = shell.stateChangeDateSK;
+      WorkItemType = shell.workItemType;
+      ChangedDate = shell.changedDate;
+      CreatedDate = shell.createdDate;
+      State = shell.state;
+      ActivatedDate = shell.activatedDate;
+      ClosedDate = shell.closedDate;
+      Priority = shell.priority;
+      ResolvedDate = shell.resolvedDate;
+      CompletedWork = shell.completedWork;
+      Effort = shell.effort;
+      FinishDate = shell.finishDate;
+      OriginalEstimate = shell.originalEstimate;
+      RemainingWork = shell.remainingWork;
+      StartDate = shell.startDate;
+      StoryPoints = shell.storyPoints;
+      TargetDate = shell.targetDate;
+      ParentWorkItemId = shell.parentWorkItemId;
+      TagNames = shell.tagNames;
+      StateChangeDate = shell.stateChangeDate;
+      Custom_Company = shell.custom_Company;
       Custom_719f69f1__002Df7d0__002D4baa__002Db6ce__002De77ad5dfcdf3 = 
-        custom_719f69f1__002Df7d0__002D4baa__002Db6ce__002De77ad5dfcdf3;
-      Custom_Eksternareferenca = custom_Eksternareferenca;
-      Custom_ITServiceorApplication = custom_ITServiceorApplication;
-      Custom_TicketNo = custom_TicketNo;
+        shell.custom_719f69f1__002Df7d0__002D4baa__002Db6ce__002De77ad5dfcdf3;
+      Custom_Eksternareferenca = shell.custom_Eksternareferenca;
+      Custom_ITServiceorApplication = shell.custom_ITServiceorApplication;
+      Custom_TicketNo = shell.custom_TicketNo;
     }
 
     public int? WorkItemId { get; }
@@ -125,29 +107,9 @@ namespace DataReader.Core.Models
     public string? Custom_Statusprojekta { get; }
     public string? Custom_TicketNo { get; }
 
-    public static Result<WorkItem> Create(
-      int workItemId,                   AnalyticsUpdatedDate inProgressDate,  AnalyticsUpdatedDate completedDate,
-      string inProgressDateSK,          string completedDateSK,               AnalyticsUpdatedDate analyticsUpdatedDate,
-      DataReaderGuid projectSK,         int workItemRevisionSK,               DataReaderGuid areaSK,
-      DataReaderGuid iterationSK,       DataReaderGuid assignedToUserSK,      DataReaderGuid changedByUserSK,
-      DataReaderGuid createdByUserSK,   DataReaderGuid activatedByUserSK,     DataReaderGuid closedByUserSK,
-      DataReaderGuid resolvedByUserSK,  string activatedDateSK,               string changedDateSK,
-      string сlosedDateSK,              string createdDateSK,                 string resolvedDateSK,
-      string stateChangeDateSK,         string workItemType,                  AnalyticsUpdatedDate changedDate,
-      AnalyticsUpdatedDate createdDate, string state,                         AnalyticsUpdatedDate activatedDate,
-      AnalyticsUpdatedDate closedDate,  int priority,                         AnalyticsUpdatedDate resolvedDate,
-      double completedWork,             string effort,                        AnalyticsUpdatedDate finishDate,
-      string originalEstimate,          string remainingWork,                 string startDate,
-      string storyPoints,               string targetDate,                    int parentWorkItemId,
-      string tagNames,                  AnalyticsUpdatedDate StateChangeDate, string custom_Company,
-      string custom_719f69f1__002Df7d0__002D4baa__002Db6ce__002De77ad5dfcdf3,
-      string custom_Eksternareferenca,  string custom_ITServiceorApplication, string custom_Statusprojekta,
-      string custom_TicketNo
-      )
+    public static Result<WorkItem> Create(WorkItemParam shell)
     {
-      WorkItem workItem = new WorkItem(
-        
-        );
+      WorkItem workItem = new WorkItem(shell);
 
       return Result.Success(workItem);
     }
