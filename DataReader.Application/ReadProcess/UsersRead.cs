@@ -1,5 +1,6 @@
 ﻿using DataReader.Core.Abstractions.Repositories;
 using DataReader.Core.Abstractions.UseCases.Users;
+using DataReader.Core.Models;
 
 
 namespace DataReader.Application.ReadProcess
@@ -13,6 +14,9 @@ namespace DataReader.Application.ReadProcess
       _usersRepository = usersRepository;
     }
 
-
+    public async Task GetUser(User user)
+    {
+      // вызывает метод Get из интерфейса репозитория
+    }
   }
 }

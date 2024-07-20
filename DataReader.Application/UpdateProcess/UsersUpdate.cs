@@ -1,5 +1,6 @@
 ﻿using DataReader.Core.Abstractions.Repositories;
 using DataReader.Core.Abstractions.UseCases.Users;
+using DataReader.Core.Models;
 using System.Net.NetworkInformation;
 
 
@@ -14,6 +15,9 @@ namespace DataReader.Application.UpdateProcess
       _usersRepository = usersRepository;
     }
 
-
+    public async Task UpdateUser(User user)
+    {
+      // вызов Update интерфейса репозитория
+    }
   }
 }

@@ -1,5 +1,6 @@
 ﻿using DataReader.Core.Abstractions.Repositories;
 using DataReader.Core.Abstractions.UseCases.Users;
+using DataReader.Core.Models;
 
 
 namespace DataReader.Application.WriteProcess
@@ -13,6 +14,9 @@ namespace DataReader.Application.WriteProcess
       _usersRepository = usersRepository;
     }
 
-
+    public async Task CreateUser(User user)
+    {
+      // вызов Create интерфейса репозитория
+    }
   }
 }
