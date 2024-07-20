@@ -2,7 +2,7 @@
 
 namespace DataReader.Application.ReadProcess
 {
-  public class UserRead
+  public class UsersRead
   {
 
   }

@@ -2,7 +2,7 @@
 
 namespace DataReader.Application.UpdateProcess
 {
-  public class UserUpdate
+  public class UsersUpdate
   {
 
   }

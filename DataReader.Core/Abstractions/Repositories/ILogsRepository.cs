@@ -1,6 +1,6 @@
 ﻿namespace DataReader.Core.Abstractions.Repositories
 {
-    public interface IUserRepository
+    public interface ILogsRepository
     {
 
     }

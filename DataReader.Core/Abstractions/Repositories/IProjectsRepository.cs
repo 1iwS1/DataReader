@@ -1,6 +1,6 @@
 ﻿namespace DataReader.Core.Abstractions.Repositories
 {
-    public interface IProjectRepository
+    public interface IProjectsRepository
     {
 
     }

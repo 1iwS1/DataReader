@@ -2,7 +2,7 @@
 
 namespace DataReader.Application.WriteProcess
 {
-  public class UserWrite
+  public class UsersWrite
   {
 
   }

@@ -2,7 +2,7 @@
 
 namespace DataReader.Application.SyncProcess
 {
-  public class UserSync
+  public class UsersSync
   {
 
   }
