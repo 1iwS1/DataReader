@@ -3,11 +3,11 @@
 
 namespace DataReader.Application.SyncProcess
 {
-    public class UsersSync
+  public class UsersSync
   {
-    private readonly IUsersRead _usersRead;
+    private readonly IUsersWrite _usersRead;
 
-    public UsersSync(IUsersRead usersRead)
+    public UsersSync(IUsersWrite usersRead)
     {
       _usersRead = usersRead;
     }
