@@ -1,4 +1,7 @@
-﻿namespace DataReader.Application.Contracts.Users
+﻿using DataReader.Core.Shells;
+
+
+namespace DataReader.Application.Contracts.Users
 {
-  public record UsersRequest();
+  public record UsersRequest(UserParam shell);
 }
