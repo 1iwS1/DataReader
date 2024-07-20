@@ -1,9 +1,9 @@
-﻿using DataReader.Core.Abstractions.UseCases;
+﻿using DataReader.Core.Abstractions.UseCases.Users;
 
 
 namespace DataReader.Application.SyncProcess
 {
-  public class UsersSync
+    public class UsersSync
   {
     private readonly IUsersRead _usersRead;
 
