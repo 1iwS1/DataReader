@@ -1,10 +1,10 @@
-﻿using DataReader.Application.Contracts.Users;
+﻿using DataReader.Core.Contracts.Users;
 using DataReader.Core.Abstractions.UseCases.Users;
 
 
 namespace DataReader.Application.SyncProcess
 {
-  public class UsersSync
+  public class UsersSync : IUsersSync
   {
     private readonly IUsersWrite _usersRead;
     private readonly IUsersWrite _usersWrite;
@@ -19,7 +19,7 @@ namespace DataReader.Application.SyncProcess
 
     public async Task Synchronisation(List<UsersRequest> requests)
     {
-
+      
     }
   }
 }

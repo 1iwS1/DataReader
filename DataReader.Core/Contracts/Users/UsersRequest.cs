@@ -1,7 +1,7 @@
 ﻿using DataReader.Core.Shells;
 
 
-namespace DataReader.Application.Contracts.Users
+namespace DataReader.Core.Contracts.Users
 {
   public record UsersRequest(UserParam shell);
 }
