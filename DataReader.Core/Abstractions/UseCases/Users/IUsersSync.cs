@@ -5,6 +5,6 @@ namespace DataReader.Application.SyncProcess
 {
   public interface IUsersSync
   {
-    Task Synchronisation(  requests);
+    Task Synchronisation(List<UsersRequest>  requests);
   }
 }
