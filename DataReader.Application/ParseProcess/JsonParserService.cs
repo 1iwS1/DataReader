@@ -3,7 +3,7 @@
 
 namespace DataReader.Application.ParseProcess
 {
-  public class JsonParser
+  public class JsonParserService
   {
 
   }
