@@ -1,10 +1,10 @@
 ﻿using DataReader.Core.Contracts.Users;
-using DataReader.Core.Abstractions.UseCases.Users;
+using DataReader.Core.Abstractions.UseCases;
 
 
 namespace DataReader.Application.SyncProcess
 {
-  public class UsersSync : ISync
+    public class UsersSync : ISync
   {
     private readonly IRead _usersRead;
     private readonly IWrite _usersWrite;

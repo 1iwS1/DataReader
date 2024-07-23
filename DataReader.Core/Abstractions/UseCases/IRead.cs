@@ -1,7 +1,7 @@
-﻿namespace DataReader.Core.Abstractions.UseCases.Users
+﻿namespace DataReader.Core.Abstractions.UseCases
 {
-  public interface IRead
-  {
+    public interface IRead
+    {
 
-  }
+    }
 }
