@@ -3,7 +3,7 @@
 
 namespace DataReader.Application.SyncProcess
 {
-  public interface IUsersSync
+  public interface ISync
   {
     Task Synchronisation(List<UsersRequest>  requests);
   }

@@ -1,12 +1,12 @@
 ﻿using DataReader.Core.Abstractions.Repositories;
-using DataReader.Core.Abstractions.UseCases.Users;
+using DataReader.Core.Abstractions.UseCases;
 using DataReader.Core.Models;
 using System.Net.NetworkInformation;
 
 
 namespace DataReader.Application.UpdateProcess
 {
-  public class UsersUpdate : IUsersUpdate
+    public class UsersUpdate : IUpdate
   {
     private readonly IUsersRepository _usersRepository;
 

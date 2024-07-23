@@ -1,11 +1,11 @@
 ﻿using DataReader.Core.Abstractions.Repositories;
-using DataReader.Core.Abstractions.UseCases.Users;
+using DataReader.Core.Abstractions.UseCases;
 using DataReader.Core.Models;
 
 
 namespace DataReader.Application.WriteProcess
 {
-  public class UsersWrite : IUsersWrite
+    public class UsersWrite : IWrite
   {
     private readonly IUsersRepository _usersRepository;
 

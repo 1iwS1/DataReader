@@ -3,7 +3,7 @@
 
 namespace DataReader.Application.Handler
 {
-  public class ApplicationHandlerService
+  public class HandlerService
   {
 
   }
