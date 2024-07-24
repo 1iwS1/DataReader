@@ -4,13 +4,13 @@ using DataReader.Core.Contracts.Params;
 
 namespace DataReader.Application.ParseProcess
 {
-    public class JsonParserService : IJsonParserService
+  public class JsonParserService : IJsonParserService
   {
     public JsonParserService() { }
 
-    public List<Param> ParseUser(string json)
+    public List<DTOParam> ParseUser(string json)
     {
-      return new List<Param> { };
+      return new List<DTOParam> { };
     }
   }
 }
