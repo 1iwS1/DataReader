@@ -5,7 +5,7 @@ using DataReader.Core.Contracts.Requests;
 
 namespace DataReader.Application.Handlers
 {
-    public class UserHandlerService
+  public class UserHandlerService
   {
     private readonly IUsersService _usersService;
     private readonly IJsonParserService _jsonParserService;
@@ -18,7 +18,7 @@ namespace DataReader.Application.Handlers
 
     public async Task Sync(string json)
     {
-      List<DTOParam> users = _jsonParserService.ParseUser(json);
+      List<DTOParam>? users = _jsonParserService.ParseUser(json);
 
       UsersRequest usersRequest = new UsersRequest();
       usersRequest.AddUserRequest(users);
