@@ -1,5 +1,4 @@
-﻿using DataReader.Core.Contracts.Users;
-
+﻿using DataReader.Core.Contracts;
 
 namespace DataReader.Core.Abstractions.UseCases
 {

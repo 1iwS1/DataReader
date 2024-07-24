@@ -1,5 +1,5 @@
-﻿using DataReader.Core.Contracts.Users;
-using DataReader.Core.Abstractions.UseCases;
+﻿using DataReader.Core.Abstractions.UseCases;
+using DataReader.Core.Contracts;
 
 
 namespace DataReader.Application.SyncProcess
