@@ -1,43 +1,29 @@
 ﻿using DataReader.Core.Abstractions.Services;
+using DataReader.Core.Contracts.Params;
+using DataReader.Core.Contracts.Requests;
 
 
-namespace DataReader.Application.Handler
+namespace DataReader.Application.Handlers
 {
-  public class UserHandlerService
+    public class UserHandlerService
   {
     private readonly IUsersService _usersService;
+    private readonly IJsonParserService _jsonParserService;
 
-    public UserHandlerService(IUsersService usersService)
+    public UserHandlerService(IUsersService usersService, IJsonParserService jsonParserService)
     {
       _usersService = usersService;
+      _jsonParserService = jsonParserService;
     }
 
-    public async Task UsersHandle(string json)
+    public async Task Sync(string json)
     {
-      // парсинг
+      List<Param> users = _jsonParserService.ParseUser(json);
 
-      await _sync.Synchronisation();
-    }
+      UsersRequest usersRequest = new UsersRequest();
+      usersRequest.AddUserRequest(users);
 
-    public async Task LogsHandle(string json)
-    {
-      // парсинг
-
-      await _sync.Synchronisation();
-    }
-
-    public async Task ProjectsHandle(string json)
-    {
-      // парсинг
-
-      await _sync.Synchronisation();
-    }
-
-    public async Task WorkItemsHandle(string json)
-    {
-      // парсинг
-
-      await _sync.Synchronisation();
+      await _usersService.SyncUser(usersRequest);
     }
   }
 }
