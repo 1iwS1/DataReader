@@ -1,5 +1,4 @@
-﻿using DataReader.Application.ProcessMediator;
-using DataReader.Core.Abstractions.Repositories;
+﻿using DataReader.Core.Abstractions.Repositories;
 using DataReader.Core.Abstractions.UseCases;
 using DataReader.Core.Models;
 

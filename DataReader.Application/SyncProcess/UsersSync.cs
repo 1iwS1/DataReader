@@ -1,6 +1,5 @@
 ﻿using CSharpFunctionalExtensions;
 
-using DataReader.Application.ProcessMediator;
 using DataReader.Core.Abstractions.UseCases;
 using DataReader.Core.Contracts;
 using DataReader.Core.Models;
