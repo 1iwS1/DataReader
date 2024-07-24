@@ -6,16 +6,39 @@ namespace DataReader.Application.Handler
 {
   public class HandlerService
   {
-    private ISync _sync;
+    private readonly ISync _sync;
+
+    public HandlerService(ISync sync)
+    {
+      _sync = sync;
+    }
 
     public async Task UsersHandle(string json)
     {
-      _sync = DoMakeSync();
+      // парсинг
+
+      await _sync.Synchronisation();
     }
 
-    public override ISync DoMakeSync()
+    public async Task LogsHandle(string json)
     {
-      return new UsersSync();
+      // парсинг
+
+      await _sync.Synchronisation();
+    }
+
+    public async Task ProjectsHandle(string json)
+    {
+      // парсинг
+
+      await _sync.Synchronisation();
+    }
+
+    public async Task WorkItemsHandle(string json)
+    {
+      // парсинг
+
+      await _sync.Synchronisation();
     }
   }
 }

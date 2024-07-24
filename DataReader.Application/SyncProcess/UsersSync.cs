@@ -1,5 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
 
+using DataReader.Application.ProcessMediator;
 using DataReader.Core.Abstractions.UseCases;
 using DataReader.Core.Contracts;
 using DataReader.Core.Models;
@@ -9,11 +10,15 @@ namespace DataReader.Application.SyncProcess
 {
   public class UsersSync : ISync
   {
+    private readonly IRead _read;
+    private readonly IWrite _write;
+    private readonly IUpdate _update;
 
-
-    public UsersSync()
+    public UsersSync(IRead read, IWrite write, IUpdate update)
     {
-
+      _read = read;
+      _write = write;
+      _update = update;
     }
 
     public async Task Synchronisation(ContractsWrapper requests)

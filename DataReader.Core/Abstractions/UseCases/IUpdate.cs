@@ -1,7 +1,7 @@
 ﻿namespace DataReader.Core.Abstractions.UseCases
 {
-    public interface IUpdate
-    {
+  public interface IUpdate
+  {
 
-    }
+  }
 }

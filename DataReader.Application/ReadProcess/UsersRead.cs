@@ -5,7 +5,7 @@ using DataReader.Core.Models;
 
 namespace DataReader.Application.ReadProcess
 {
-  public class UsersRead : IWrite
+  public class UsersRead : IRead
   {
     private readonly IUsersRepository _usersRepository;
 
@@ -14,7 +14,7 @@ namespace DataReader.Application.ReadProcess
       _usersRepository = usersRepository;
     }
 
-    public async Task GetUser(User user)
+    public async Task<User> GetUser(User user)
     {
       // вызывает метод Get из интерфейса репозитория
     }
