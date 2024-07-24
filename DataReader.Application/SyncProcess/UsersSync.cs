@@ -9,15 +9,11 @@ namespace DataReader.Application.SyncProcess
 {
   public class UsersSync : ISync
   {
-    private readonly IRead _usersRead;
-    private readonly IWrite _usersWrite;
-    private readonly IUpdate _usersUpdate;
 
-    public UsersSync(IRead usersRead, IWrite usersWrite, IUpdate usersUpdate)
+
+    public UsersSync()
     {
-      _usersRead = usersRead;
-      _usersWrite = usersWrite;
-      _usersUpdate = usersUpdate;
+
     }
 
     public async Task Synchronisation(ContractsWrapper requests)
