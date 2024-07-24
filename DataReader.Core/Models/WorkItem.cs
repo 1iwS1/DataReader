@@ -82,10 +82,10 @@ namespace DataReader.Core.Models
     public string? CreatedDateSK { get; }
     public string? ResolvedDateSK { get; }
     public string? StateChangeDateSK { get; }
-    public WorkItemTypeEnum WorkItemType { get; }
+    public string? WorkItemType { get; }
     public AnalyticsUpdatedDate ChangedDate { get; }
     public AnalyticsUpdatedDate CreatedDate { get; }
-    public StateEnum State { get; }
+    public string? State { get; }
     public AnalyticsUpdatedDate ActivatedDate { get; }
     public AnalyticsUpdatedDate ClosedDate { get; }
     public int? Priority { get; }
