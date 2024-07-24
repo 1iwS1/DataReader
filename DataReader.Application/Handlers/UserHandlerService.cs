@@ -1,16 +1,15 @@
-﻿using DataReader.Application.SyncProcess;
-using DataReader.Core.Abstractions.UseCases;
+﻿using DataReader.Core.Abstractions.Services;
 
 
 namespace DataReader.Application.Handler
 {
-  public class HandlerService
+  public class UserHandlerService
   {
-    private readonly ISync _sync;
+    private readonly IUsersService _usersService;
 
-    public HandlerService(ISync sync)
+    public UserHandlerService(IUsersService usersService)
     {
-      _sync = sync;
+      _usersService = usersService;
     }
 
     public async Task UsersHandle(string json)
