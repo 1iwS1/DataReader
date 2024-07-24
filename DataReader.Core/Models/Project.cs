@@ -1,5 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
 
+using DataReader.Core.Shells;
 using DataReader.Core.ValueObjects;
 using DataReader.Core.ValueObjects.Project;
 
@@ -8,19 +9,13 @@ namespace DataReader.Core.Models
 {
   public class Project
   {
-    private Project(
-      DataReaderGuid projectSK,
-      DataReaderGuid projectId,
-      ProjectName projectName,
-      AnalyticsUpdatedDate analyticsUpdatedDate,
-      string projectVisibility
-      )
+    private Project(ProjectParam shell)
     {
-      ProjectSK = projectSK;
-      ProjectID = projectId;
-      ProjectName = projectName;
-      AnalyticsUpdatedDate = analyticsUpdatedDate;
-      ProjectVisibility = projectVisibility;
+      ProjectSK = shell.projectSK;
+      ProjectID = shell.projectId;
+      ProjectName = shell.projectName;
+      AnalyticsUpdatedDate = shell.analyticsUpdatedDate;
+      ProjectVisibility = shell.projectVisibility;
     }
 
     public DataReaderGuid ProjectSK {  get; }
@@ -29,15 +24,9 @@ namespace DataReader.Core.Models
     public AnalyticsUpdatedDate AnalyticsUpdatedDate { get; }
     public string? ProjectVisibility { get; }
 
-    public static Result<Project> Create(
-      DataReaderGuid projectSK,
-      DataReaderGuid projectId,
-      ProjectName projectName,
-      AnalyticsUpdatedDate analyticsUpdatedDate,
-      string projectVisibility
-      )
+    public static Result<Project> Create(ProjectParam shell)
     {
-      Project project = new Project(projectSK, projectId, projectName, analyticsUpdatedDate, projectVisibility);
+      Project project = new Project(shell);
 
       return Result.Success(project);
     }

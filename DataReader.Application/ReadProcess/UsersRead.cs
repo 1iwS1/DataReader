@@ -5,7 +5,7 @@ using DataReader.Core.Models;
 
 namespace DataReader.Application.ReadProcess
 {
-    public class UsersRead : IWrite
+  public class UsersRead : IWrite
   {
     private readonly IUsersRepository _usersRepository;
 

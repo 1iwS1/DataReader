@@ -4,7 +4,7 @@ using DataReader.Core.Contracts;
 
 namespace DataReader.Application.SyncProcess
 {
-    public class UsersSync : ISync
+  public class UsersSync : ISync
   {
     private readonly IRead _usersRead;
     private readonly IWrite _usersWrite;
@@ -19,7 +19,7 @@ namespace DataReader.Application.SyncProcess
 
     public async Task Synchronisation(List<UsersRequest> requests)
     {
-      
+
     }
   }
 }
