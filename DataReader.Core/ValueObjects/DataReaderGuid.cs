@@ -1,4 +1,5 @@
 ﻿using CSharpFunctionalExtensions;
+
 using System.Text.RegularExpressions;
 
 
@@ -7,11 +8,11 @@ namespace DataReader.Core.ValueObjects
   public class DataReaderGuid : ValueObject
   {
     private const string REGEX_FOR_GUID = @"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$";
-    public Guid? UserG { get; }
+    public Guid? UserSK { get; }
 
-    private DataReaderGuid(Guid userG)
+    private DataReaderGuid(Guid userSK)
     {
-      UserG = userG;
+      UserSK = userSK;
     }
 
     public static Result<DataReaderGuid> Create(Guid userG)
@@ -26,7 +27,7 @@ namespace DataReader.Core.ValueObjects
 
     protected override IEnumerable<IComparable?> GetEqualityComponents()
     {
-      yield return UserG;
+      yield return UserSK;
     }
   }
 }

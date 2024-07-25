@@ -1,4 +1,6 @@
-﻿using CSharpFunctionalExtensions;
+﻿using Newtonsoft.Json;
+using CSharpFunctionalExtensions;
+
 using DataReader.Core.Shells;
 using DataReader.Core.ValueObjects;
 using DataReader.Core.ValueObjects.User;
@@ -19,11 +21,20 @@ namespace DataReader.Core.Models
       UserType = shell.userType;
     }
 
-    public string? UserSK { get; }
-    public string? UserId { get; }
-    public string? UserName { get; }
-    public string? UserEmail { get; }
-    public string? AnalyticsUpdatedDate { get; }
+    [JsonProperty("UserSK")]
+    public DataReaderGuid UserSK { get; }
+
+    [JsonProperty("UserId")]
+    public DataReaderGuid UserId { get; }
+
+    [JsonProperty("UserName")]
+    public UserName UserName { get; }
+
+    [JsonProperty("UserEmail")]
+    public UserEmail UserEmail { get; }
+
+    [JsonProperty("AnalyticsUpdatedDate")]
+    public AnalyticsUpdatedDate AnalyticsUpdatedDate { get; }
     public string? GitHubUserId { get; }
     public string? UserType { get; } = string.Empty;
 

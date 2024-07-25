@@ -1,9 +1,12 @@
 ﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using CSharpFunctionalExtensions;
 
 using DataReader.Core.Contracts.Params;
 using DataReader.Core.Shells;
 using DataReader.Core.Abstractions.Services.Parsers;
+using DataReader.Core.ValueObjects;
+using DataReader.Core.ValueObjects.User;
 
 
 namespace DataReader.Application.ParseProcess
@@ -29,7 +32,26 @@ namespace DataReader.Application.ParseProcess
           return Result.Failure<List<UsersDTOParam>?>("empty json");
         }
 
-        userParam = array.ToObject<List<UserParam>>();
+        foreach (var item in array)
+        {
+          DataReaderGuid userSK = DataReaderGuid.Create((Guid)item["UserSK"]).Value;
+          DataReaderGuid userID = DataReaderGuid.Create((Guid)item["UserId"]).Value;
+          UserName userName = UserName.Create(item["UserName"].ToString()).Value;
+          UserEmail userEmail = UserEmail.Create(item["UserEmail"].ToString()).Value;
+
+          AnalyticsUpdatedDate analytics = 
+            AnalyticsUpdatedDate.
+            Create(item["AnalyticsUpdatedDate"].
+            ToString(Formatting.Indented).
+            Trim('"')).
+            Value;
+
+          string gitHubUserId = item["GitHubUserId"].ToString();
+          string userType = item["UserType"].ToString();
+
+          UserParam param = new(userSK, userID, userName, userEmail, analytics, gitHubUserId, userType);
+          userParam.Add(param);
+        }
 
         foreach (var param in userParam)
         {
