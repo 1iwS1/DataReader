@@ -8,7 +8,7 @@ using DataReader.Core.Abstractions.Services.Parsers;
 
 namespace DataReader.Application.ParseProcess
 {
-    public class JsonParserService : IJsonParserService
+  public class JsonParserService : IJsonParserService
   {
     public JsonParserService() { }
 

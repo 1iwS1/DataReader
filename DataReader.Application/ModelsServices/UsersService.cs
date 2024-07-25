@@ -23,33 +23,33 @@ namespace DataReader.Application.ModelsServices
       foreach (var request in userRequests.UsersRequestCollection)
       {
         Result<User> user = User.Create(request.shell);
-        User userCheck = await GetUser(user.Value.UserId);
+        //User userCheck = await GetUser(user.Value.UserId);
 
-        if (userCheck != null)
-        {
-          await UpdateUser(user.Value);
-        }
+        //if (userCheck != null)
+        //{
+        //  await UpdateUser(user.Value);
+        //}
 
-        else
-        {
-          await CreateUser(user.Value);
-        }
+        //else
+        //{
+        //  await CreateUser(user.Value);
+        //}
       }
     }
 
-    public async Task<User> GetUser(string userId)
-    {
-      return await _usersRepository.
-    }
+    //public async Task<User> GetUser(string userId)
+    //{
+    //  return await _usersRepository.
+    //}
 
-    public async Task UpdateUser(User user)
-    {
-      await _usersRepository.
-    }
+    //public async Task UpdateUser(User user)
+    //{
+    //  await _usersRepository.
+    //}
 
-    public async Task CreateUser(User user)
-    {
-      await _usersRepository.
-    }
+    //public async Task CreateUser(User user)
+    //{
+    //  await _usersRepository.
+    //}
   }
 }

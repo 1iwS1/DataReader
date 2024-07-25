@@ -6,7 +6,7 @@ namespace DataReader.Core.ValueObjects
 {
   public class DataReaderGuid : ValueObject
   {
-    private const string REGEX_FOR_GUID = "";
+    private const string REGEX_FOR_GUID = @"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$";
     public Guid? UserG { get; }
 
     private DataReaderGuid(Guid userG)

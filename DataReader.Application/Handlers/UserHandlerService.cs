@@ -7,14 +7,14 @@ using DataReader.Core.Contracts.Requests;
 
 namespace DataReader.Application.Handlers
 {
-    public class UserHandlerService : IUserHandlerService
+  public class UserHandlerService : IUserHandlerService
   {
     private readonly IUsersService _usersService;
     private readonly IJsonParserService _jsonParserService;
 
-    public UserHandlerService(IUsersService usersService, IJsonParserService jsonParserService)
+    public UserHandlerService(/*IUsersService usersService, */IJsonParserService jsonParserService)
     {
-      _usersService = usersService;
+      //_usersService = usersService;
       _jsonParserService = jsonParserService;
     }
 
@@ -25,7 +25,7 @@ namespace DataReader.Application.Handlers
       UsersRequest usersRequest = new UsersRequest();
       usersRequest.AddUserRequest(users);
 
-      await _usersService.SyncUser(usersRequest);
+      //await _usersService.SyncUser(usersRequest);
     }
   }
 }
