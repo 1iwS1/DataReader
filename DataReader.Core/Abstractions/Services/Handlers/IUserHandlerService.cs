@@ -7,7 +7,7 @@ namespace DataReader.Core.Abstractions.Services.Handlers
 {
   public interface IUserHandlerService
   {
-    Task Sync(List<UsersDTOParam> users);
+    Task<Result> Sync(List<UsersDTOParam> users);
     Task<Result> Parsing(string json);
   }
 }

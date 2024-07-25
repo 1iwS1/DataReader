@@ -14,9 +14,9 @@ namespace DataReader.Application.Handlers
     private readonly IUsersService _usersService;
     private readonly IJsonParserService _jsonParserService;
 
-    public UserHandlerService(/*IUsersService usersService, */IJsonParserService jsonParserService)
+    public UserHandlerService(IUsersService usersService, IJsonParserService jsonParserService)
     {
-      //_usersService = usersService;
+      _usersService = usersService;
       _jsonParserService = jsonParserService;
     }
 
@@ -37,7 +37,8 @@ namespace DataReader.Application.Handlers
       UsersRequest usersRequest = new UsersRequest();
       usersRequest.AddUserRequest(users);
 
-      //await _usersService.SyncUser(usersRequest);
+      return await _usersService.SyncUser(usersRequest);
+      //throw new NotImplementedException();
     }
   }
 }

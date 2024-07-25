@@ -25,38 +25,41 @@ namespace DataReader.Application.ParseProcess
         //userParam = JsonConvert.DeserializeObject<List<UserParam>>(json);
 
         JObject obj = JObject.Parse(json);
-        JArray? array = (JArray?)obj["value"];
+        JArray array = (JArray)obj["value"];
 
-        if (array == null)
+        //if (array == null)
+        //{
+        //  return Result.Failure<List<UsersDTOParam>?>("empty json");
+        //}
+
+        if (array.Count != 0)
         {
-          return Result.Failure<List<UsersDTOParam>?>("empty json");
-        }
+          foreach (var item in array)
+          {
+            DataReaderGuid userSK = DataReaderGuid.Create((Guid)item["UserSK"]).Value;
+            DataReaderGuid userID = DataReaderGuid.Create((Guid)item["UserId"]).Value;
+            UserName userName = UserName.Create(item["UserName"].ToString()).Value;
+            UserEmail userEmail = UserEmail.Create(item["UserEmail"].ToString()).Value;
 
-        foreach (var item in array)
-        {
-          DataReaderGuid userSK = DataReaderGuid.Create((Guid)item["UserSK"]).Value;
-          DataReaderGuid userID = DataReaderGuid.Create((Guid)item["UserId"]).Value;
-          UserName userName = UserName.Create(item["UserName"].ToString()).Value;
-          UserEmail userEmail = UserEmail.Create(item["UserEmail"].ToString()).Value;
+            AnalyticsUpdatedDate analytics =
+              AnalyticsUpdatedDate.
+              Create(item["AnalyticsUpdatedDate"].
+              ToString(Formatting.Indented).
+              Trim('"')).
+              Value;
 
-          AnalyticsUpdatedDate analytics = 
-            AnalyticsUpdatedDate.
-            Create(item["AnalyticsUpdatedDate"].
-            ToString(Formatting.Indented).
-            Trim('"')).
-            Value;
+            string gitHubUserId = item["GitHubUserId"].ToString();
+            string userType = item["UserType"].ToString();
 
-          string gitHubUserId = item["GitHubUserId"].ToString();
-          string userType = item["UserType"].ToString();
+            UserParam param = new(userSK, userID, userName, userEmail, analytics, gitHubUserId, userType);
+            userParam.Add(param);
+          }
 
-          UserParam param = new(userSK, userID, userName, userEmail, analytics, gitHubUserId, userType);
-          userParam.Add(param);
-        }
-
-        foreach (var param in userParam)
-        {
-          UsersDTOParam dto = new(param);
-          result.Add(dto);
+          foreach (var param in userParam)
+          {
+            UsersDTOParam dto = new(param);
+            result.Add(dto);
+          }
         }
 
         return Result.Success<List<UsersDTOParam>?>(result);
