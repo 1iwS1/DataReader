@@ -1,7 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Newtonsoft.Json.Linq;
 
 using DataReader.Core.Abstractions.Services;
 using DataReader.Core.Contracts.Params;
+using DataReader.Core.Shells;
 
 
 namespace DataReader.Application.ParseProcess
@@ -14,9 +15,21 @@ namespace DataReader.Application.ParseProcess
     {
       try
       {
-        List<DTOParam>? result = new List<DTOParam>();
+        List<DTOParam>? result = new();
+        List<UserParam>? userParam = new();
 
-        result = JsonConvert.DeserializeObject<List<DTOParam>>(json);
+        //userParam = JsonConvert.DeserializeObject<List<UserParam>>(json);
+
+        JObject obj = JObject.Parse(json);
+        JArray array = (JArray)obj["value"];
+
+        userParam = array.ToObject<List<UserParam>>();
+
+        foreach (var param in userParam)
+        {
+          DTOParam dto = new(param);
+          result.Add(dto);
+        }
 
         return result;
       }

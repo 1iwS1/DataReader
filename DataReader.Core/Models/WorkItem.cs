@@ -1,6 +1,5 @@
 ﻿using CSharpFunctionalExtensions;
 
-using DataReader.Core.Enums;
 using DataReader.Core.Shells;
 using DataReader.Core.ValueObjects;
 

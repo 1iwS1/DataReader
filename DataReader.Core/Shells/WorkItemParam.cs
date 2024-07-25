@@ -1,5 +1,4 @@
-﻿using DataReader.Core.Enums;
-using DataReader.Core.ValueObjects;
+﻿using DataReader.Core.ValueObjects;
 
 
 namespace DataReader.Core.Shells

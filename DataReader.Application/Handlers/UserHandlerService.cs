@@ -5,7 +5,7 @@ using DataReader.Core.Contracts.Requests;
 
 namespace DataReader.Application.Handlers
 {
-  public class UserHandlerService
+  public class UserHandlerService : IUserHandlerService
   {
     private readonly IUsersService _usersService;
     private readonly IJsonParserService _jsonParserService;

@@ -9,7 +9,7 @@ using DataReader.Core.ValueObjects;
 
 namespace DataReader.Application.ModelsServices
 {
-    public class UsersService : IUsersService
+  public class UsersService : IUsersService
   {
     private readonly IUsersRepository _usersRepository;
 
@@ -37,7 +37,7 @@ namespace DataReader.Application.ModelsServices
       }
     }
 
-    public async Task<User> GetUser(DataReaderGuid userId)
+    public async Task<User> GetUser(string userId)
     {
       return await _usersRepository.
     }

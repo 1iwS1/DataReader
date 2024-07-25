@@ -19,12 +19,12 @@ namespace DataReader.Core.Models
       UserType = shell.userType;
     }
 
-    public DataReaderGuid UserSK { get; }
-    public DataReaderGuid UserId { get; }
-    public UserName UserName { get; }
-    public UserEmail UserEmail { get; }
-    public AnalyticsUpdatedDate AnalyticsUpdatedDate { get; }
-    public DataReaderGuid GitHubUserId { get; }
+    public string? UserSK { get; }
+    public string? UserId { get; }
+    public string? UserName { get; }
+    public string? UserEmail { get; }
+    public string? AnalyticsUpdatedDate { get; }
+    public string? GitHubUserId { get; }
     public string? UserType { get; } = string.Empty;
 
     public static Result<User> Create(UserParam shell)
