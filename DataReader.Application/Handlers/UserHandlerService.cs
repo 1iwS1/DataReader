@@ -18,7 +18,7 @@ namespace DataReader.Application.Handlers
 
     public async Task Sync(string json)
     {
-      List<DTOParam>? users = _jsonParserService.ParseUser(json);
+      List<DTOParam>? users = _jsonParserService.ParseUser(json).Value;
 
       UsersRequest usersRequest = new UsersRequest();
       usersRequest.AddUserRequest(users);
