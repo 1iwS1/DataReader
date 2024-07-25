@@ -1,14 +1,14 @@
 ﻿using Newtonsoft.Json.Linq;
 using CSharpFunctionalExtensions;
 
-using DataReader.Core.Abstractions.Services;
 using DataReader.Core.Contracts.Params;
 using DataReader.Core.Shells;
+using DataReader.Core.Abstractions.Services.Parsers;
 
 
 namespace DataReader.Application.ParseProcess
 {
-  public class JsonParserService : IJsonParserService
+    public class JsonParserService : IJsonParserService
   {
     public JsonParserService() { }
 

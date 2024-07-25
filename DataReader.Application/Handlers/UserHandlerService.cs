@@ -1,11 +1,13 @@
 ﻿using DataReader.Core.Abstractions.Services;
+using DataReader.Core.Abstractions.Services.Handlers;
+using DataReader.Core.Abstractions.Services.Parsers;
 using DataReader.Core.Contracts.Params;
 using DataReader.Core.Contracts.Requests;
 
 
 namespace DataReader.Application.Handlers
 {
-  public class UserHandlerService : IUserHandlerService
+    public class UserHandlerService : IUserHandlerService
   {
     private readonly IUsersService _usersService;
     private readonly IJsonParserService _jsonParserService;
