@@ -3,5 +3,5 @@
 
 namespace DataReader.Core.Contracts.Params
 {
-  public record DTOParam(UserParam shell);
+  public record UsersDTOParam(UserParam shell);
 }

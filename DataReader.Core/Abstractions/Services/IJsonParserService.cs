@@ -7,6 +7,6 @@ namespace DataReader.Core.Abstractions.Services
 {
   public interface IJsonParserService
   {
-    Result<List<DTOParam>?> ParseUser(string json);
+    Result<List<UsersDTOParam>?> ParseUser(string json);
   }
 }

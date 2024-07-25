@@ -12,11 +12,11 @@ namespace DataReader.Application.ParseProcess
   {
     public JsonParserService() { }
 
-    public Result<List<DTOParam>?> ParseUser(string json)
+    public Result<List<UsersDTOParam>?> ParseUser(string json)
     {
       try
       {
-        List<DTOParam>? result = new();
+        List<UsersDTOParam>? result = new();
         List<UserParam>? userParam = new();
 
         //userParam = JsonConvert.DeserializeObject<List<UserParam>>(json);
@@ -26,23 +26,23 @@ namespace DataReader.Application.ParseProcess
 
         if (array == null)
         {
-          return Result.Failure<List<DTOParam>?>("empty json");
+          return Result.Failure<List<UsersDTOParam>?>("empty json");
         }
 
         userParam = array.ToObject<List<UserParam>>();
 
         foreach (var param in userParam)
         {
-          DTOParam dto = new(param);
+          UsersDTOParam dto = new(param);
           result.Add(dto);
         }
 
-        return Result.Success<List<DTOParam>?>(result);
+        return Result.Success<List<UsersDTOParam>?>(result);
       }
 
       catch (Exception ex)
       {
-        return Result.Failure<List<DTOParam>?>(ex.Message);
+        return Result.Failure<List<UsersDTOParam>?>(ex.Message);
       }
     }
   }
