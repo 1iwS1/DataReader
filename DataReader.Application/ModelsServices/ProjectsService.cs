@@ -44,17 +44,17 @@ namespace DataReader.Application.Services
 
     //public async Task<Result<Project>> GetProject(DataReaderGuid projectId)
     //{
-    //  return await _usersRepository.
+    //  return await _projectsRepository.
     //}
 
     //public async Task<Result> UpdateProject(DataReaderGuid projectId)
     //{
-    //  return await _usersRepository.
+    //  return await _projectsRepository.
     //}
 
     //public async Task<Result> CreateProject(Project user)
     //{
-    //  return await _usersRepository.
+    //  return await _projectsRepository.
     //}
   }
 }
