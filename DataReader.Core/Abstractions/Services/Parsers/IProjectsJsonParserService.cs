@@ -5,8 +5,8 @@ using DataReader.Core.Contracts.Params;
 
 namespace DataReader.Core.Abstractions.Services.Parsers
 {
-  public interface IJsonParserService
+  public interface IProjectsJsonParserService
   {
-    Result<List<UsersDTOParam>?> ParseUser(string json);
+    Result<List<ProjectsDTOParam>?> ParseProject(string json);
   }
 }

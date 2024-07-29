@@ -11,9 +11,9 @@ using DataReader.Core.ValueObjects.User;
 
 namespace DataReader.Application.ParseProcess
 {
-  public class JsonParserService : IJsonParserService
+  public class UsersJsonParserService : IUsersJsonParserService
   {
-    public JsonParserService() { }
+    public UsersJsonParserService() { }
 
     public Result<List<UsersDTOParam>?> ParseUser(string json)
     {

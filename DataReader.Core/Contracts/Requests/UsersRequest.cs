@@ -3,11 +3,11 @@
 
 namespace DataReader.Core.Contracts.Requests
 {
-  public partial class UsersRequest
+  public class UsersRequest
   {
 
     private readonly List<UsersDTOParam> _list = new();
     public IReadOnlyCollection<UsersDTOParam> UsersRequestCollection => _list;
-    public void AddUserRequest(List<UsersDTOParam> request) => _list.AddRange(request);
+    public void AddUserRequests(List<UsersDTOParam> request) => _list.AddRange(request);
   }
 }

@@ -12,11 +12,11 @@ namespace DataReader.Application.Handlers
   public class UserHandlerService : IUserHandlerService
   {
     private readonly IUsersService _usersService;
-    private readonly IJsonParserService _jsonParserService;
+    private readonly IUsersJsonParserService _jsonParserService;
 
-    public UserHandlerService(/*IUsersService usersService, */IJsonParserService jsonParserService)
+    public UserHandlerService(IUsersService usersService, IUsersJsonParserService jsonParserService)
     {
-      //_usersService = usersService;
+      _usersService = usersService;
       _jsonParserService = jsonParserService;
     }
 
@@ -35,10 +35,10 @@ namespace DataReader.Application.Handlers
     public async Task<Result> Sync(List<UsersDTOParam>? users)
     {
       UsersRequest usersRequest = new UsersRequest();
-      usersRequest.AddUserRequest(users);
+      usersRequest.AddUserRequests(users);
 
-      //return await _usersService.SyncUser(usersRequest);
-      throw new NotImplementedException();
+      return await _usersService.SyncUser(usersRequest);
+      //throw new NotImplementedException();
     }
   }
 }
