@@ -1,4 +1,5 @@
 ﻿using CSharpFunctionalExtensions;
+
 using System.Text.RegularExpressions;
 
 
@@ -6,27 +7,30 @@ namespace DataReader.Core.ValueObjects
 {
   public class DataReaderGuid : ValueObject
   {
-    private const string REGEX_FOR_GUID = "";
-    public Guid? UserG { get; }
+    private const string REGEX_FOR_GUID = @"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$";
+    public Guid? CustomGuid { get; }
 
-    private DataReaderGuid(Guid userG)
+    private DataReaderGuid(Guid? customGuid)
     {
-      UserG = userG;
+      CustomGuid = customGuid;
     }
 
-    public static Result<DataReaderGuid> Create(Guid userG)
+    public static Result<DataReaderGuid> Create(string customGuid)
     {
-      if (!Regex.IsMatch(userG.ToString(), REGEX_FOR_GUID))
+      if (!string.IsNullOrEmpty(customGuid))
       {
-        return Result.Failure<DataReaderGuid>($"'{nameof(userG)}' must be Guid");
+        if (!Regex.IsMatch(customGuid, REGEX_FOR_GUID))
+        {
+          return Result.Failure<DataReaderGuid>($"'{nameof(customGuid)}' must be Guid");
+        }
       }
 
-      return new DataReaderGuid(userG);
+      return new DataReaderGuid(!string.IsNullOrEmpty(customGuid) ? new Guid(customGuid) : null);
     }
 
     protected override IEnumerable<IComparable?> GetEqualityComponents()
     {
-      yield return UserG;
+      yield return CustomGuid;
     }
   }
 }

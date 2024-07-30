@@ -1,5 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
 
+using DataReader.Core.Shells;
 using DataReader.Core.ValueObjects;
 
 
@@ -7,24 +8,18 @@ namespace DataReader.Core.Models
 {
   public class Log
   {
-    private Log(
-      AnalyticsUpdatedDate lastSyncTime,
-      string syncResult
-      )
+    private Log(LogParam shell)
     {
-      LastSyncTime = lastSyncTime;
-      SyncResult = syncResult;
+      LastSyncTime = shell.lastSyncTime;
+      SyncResult = shell.syncResult;
     }
 
     public AnalyticsUpdatedDate LastSyncTime { get; }
     public string? SyncResult { get; }
 
-    public static Result<Log> Create(
-      AnalyticsUpdatedDate lastSyncTime,
-      string result
-      )
+    public static Result<Log> Create(LogParam shell)
     {
-      Log log = new Log(lastSyncTime, result);
+      Log log = new Log(shell);
 
       return Result.Success(log);
     }
