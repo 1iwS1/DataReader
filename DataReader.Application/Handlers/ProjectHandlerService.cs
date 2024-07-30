@@ -14,9 +14,9 @@ namespace DataReader.Application.Handlers
     private readonly IProjectsService _projectsService;
     private readonly IProjectsJsonParserService _projectsJsonParserService;
 
-    public ProjectHandlerService(IProjectsService projectsService, IProjectsJsonParserService projectsJsonParserService)
+    public ProjectHandlerService(/*IProjectsService projectsService, */IProjectsJsonParserService projectsJsonParserService)
     {
-      _projectsService = projectsService;
+      //_projectsService = projectsService;
       _projectsJsonParserService = projectsJsonParserService;
     }
 
@@ -37,8 +37,8 @@ namespace DataReader.Application.Handlers
       ProjectsRequest projectsRequest = new ProjectsRequest();
       projectsRequest.AddProjectRequests(projects);
 
-      return await _projectsService.SyncProject(projectsRequest);
-      //throw new NotImplementedException();
+      //return await _projectsService.SyncProject(projectsRequest);
+      throw new NotImplementedException();
     }
   }
 }

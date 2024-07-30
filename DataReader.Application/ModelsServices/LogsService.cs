@@ -1,7 +1,7 @@
 ﻿using CSharpFunctionalExtensions;
 
 using DataReader.Core.Abstractions.Repositories;
-using DataReader.Core.Abstractions.Services.Handlers;
+using DataReader.Core.Abstractions.Services;
 using DataReader.Core.Models;
 
 
