@@ -5,6 +5,7 @@ using DataReader.Core.Abstractions.Services.Handlers;
 using DataReader.Core.Abstractions.Services.Parsers;
 using DataReader.Core.Contracts.Params;
 using DataReader.Core.Contracts.Requests;
+using DataReader.Core.Models;
 
 
 namespace DataReader.Application.Handlers
@@ -27,6 +28,11 @@ namespace DataReader.Application.Handlers
       if (projects.IsFailure)
       {
         return projects;
+      }
+
+      if (projects.Value?.Count == 0)
+      {
+        return new Result();
       }
 
       return await Sync(projects.Value);

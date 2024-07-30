@@ -25,36 +25,36 @@ namespace DataReader.Application.Services
         foreach (var request in workItemsRequest.WorkItemsRequestCollection)
         {
           Result<WorkItem> workItem = WorkItem.Create(request.shell);
-          Result<WorkItem> workItemCheck = await GetWorkItem(workItem.Value.WorkItemId);
+          //Result<WorkItem> workItemCheck = await GetWorkItem(workItem.Value.WorkItemId);
 
-          if (workItemCheck.Value != null)
-          {
-            return await UpdateWorkItem(workItem.Value.WorkItemId);
-          }
+          //if (workItemCheck.Value != null)
+          //{
+          //  return await UpdateWorkItem(workItem.Value.WorkItemId);
+          //}
 
-          else
-          {
-            return await CreateWorkItem(workItem.Value);
-          }
+          //else
+          //{
+          //  return await CreateWorkItem(workItem.Value);
+          //}
         }
       }
 
       return new Result<WorkItem>();
     }
 
-    public async Task<Result<WorkItem>> GetWorkItem(int? workItemId)
-    {
-      return await _workItemsRepository.
-    }
+    //public async Task<Result<WorkItem>> GetWorkItem(int? workItemId)
+    //{
+    //  return await _workItemsRepository.
+    //}
 
-    public async Task<Result> UpdateWorkItem(int? workItemId)
-    {
-      return await _workItemsRepository.
-    }
+    //public async Task<Result> UpdateWorkItem(int? workItemId)
+    //{
+    //  return await _workItemsRepository.
+    //}
 
-    public async Task<Result> CreateWorkItem(WorkItem workItem)
-    {
-      return await _workItemsRepository.
-    }
+    //public async Task<Result> CreateWorkItem(WorkItem workItem)
+    //{
+    //  return await _workItemsRepository.
+    //}
   }
 }

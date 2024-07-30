@@ -1,5 +1,4 @@
 ﻿using CSharpFunctionalExtensions;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 using DataReader.Core.Contracts.Params;
@@ -22,15 +21,8 @@ namespace DataReader.Application.ParseProcess
         List<ProjectsDTOParam>? result = new();
         List<ProjectParam>? projectParam = new();
 
-        //userParam = JsonConvert.DeserializeObject<List<UserParam>>(json);
-
         JObject obj = JObject.Parse(json);
         JArray array = (JArray)obj["value"];
-
-        //if (array == null)
-        //{
-        //  return Result.Failure<List<UsersDTOParam>?>("empty json");
-        //}
 
         if (array.Count != 0)
         {
@@ -53,18 +45,16 @@ namespace DataReader.Application.ParseProcess
 
       foreach (var item in array)
       {
-        DataReaderGuid projectSK = DataReaderGuid.Create((Guid)item["ProjectSK"]).Value;
-        DataReaderGuid projectID = DataReaderGuid.Create((Guid)item["ProjectID"]).Value;
-        ProjectName projectName = ProjectName.Create(item["ProjectID"].ToString()).Value;
+        DataReaderGuid projectSK = DataReaderGuid.Create(item["ProjectSK"].ToString()).Value;
+        DataReaderGuid projectID = DataReaderGuid.Create(item["ProjectId"].ToString()).Value;
+        ProjectName projectName = ProjectName.Create(item["ProjectName"]?.ToString()).Value;
 
         AnalyticsUpdatedDate analytics =
           AnalyticsUpdatedDate.
-          Create(item["AnalyticsUpdatedDate"].
-          ToString(Formatting.Indented).
-          Trim('"')).
+          Create(item["AnalyticsUpdatedDate"]).
           Value;
 
-        string? projectVisibility = item["ProjectVisibility"].ToString();
+        string? projectVisibility = item["ProjectVisibility"]?.ToString();
 
         ProjectParam param = new(projectSK, projectID, projectName, analytics, projectVisibility);
         temp.Add(param);

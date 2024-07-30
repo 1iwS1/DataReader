@@ -12,7 +12,7 @@ namespace DataReader.Core.ValueObjects.Project
       Name = name;
     }
 
-    public static Result<ProjectName> Create(string name)
+    public static Result<ProjectName> Create(string? name)
     {
       if (name.Length > MAX_PROJECTNAME_LENGHT)
       {

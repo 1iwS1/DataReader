@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
 using CSharpFunctionalExtensions;
 
 using DataReader.Core.Contracts.Params;
@@ -22,15 +21,8 @@ namespace DataReader.Application.ParseProcess
         List<UsersDTOParam>? result = new();
         List<UserParam>? userParam = new();
 
-        //userParam = JsonConvert.DeserializeObject<List<UserParam>>(json);
-
         JObject obj = JObject.Parse(json);
         JArray array = (JArray)obj["value"];
-
-        //if (array == null)
-        //{
-        //  return Result.Failure<List<UsersDTOParam>?>("empty json");
-        //}
 
         if (array.Count != 0)
         {
@@ -53,20 +45,18 @@ namespace DataReader.Application.ParseProcess
 
       foreach (var item in array)
       {
-        DataReaderGuid userSK = DataReaderGuid.Create((Guid)item["UserSK"]).Value;
-        DataReaderGuid userID = DataReaderGuid.Create((Guid)item["UserId"]).Value;
+        DataReaderGuid userSK = DataReaderGuid.Create(item["UserSK"].ToString()).Value;
+        DataReaderGuid userID = DataReaderGuid.Create(item["UserId"].ToString()).Value;
         UserName userName = UserName.Create(item["UserName"].ToString()).Value;
         UserEmail userEmail = UserEmail.Create(item["UserEmail"].ToString()).Value;
 
         AnalyticsUpdatedDate analytics =
           AnalyticsUpdatedDate.
-          Create(item["AnalyticsUpdatedDate"].
-          ToString(Formatting.Indented).
-          Trim('"')).
+          Create(item["AnalyticsUpdatedDate"]).
           Value;
 
-        string gitHubUserId = item["GitHubUserId"].ToString();
-        string userType = item["UserType"].ToString();
+        string? gitHubUserId = item["GitHubUserId"].ToString();
+        string? userType = item["UserType"].ToString();
 
         UserParam param = new(userSK, userID, userName, userEmail, analytics, gitHubUserId, userType);
         temp.Add(param);

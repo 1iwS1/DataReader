@@ -1,5 +1,4 @@
 ﻿using CSharpFunctionalExtensions;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 using DataReader.Core.Contracts.Params;
@@ -21,15 +20,8 @@ namespace DataReader.Application.ParseProcess
         List<WorkItemsDTOParam>? result = new();
         List<WorkItemParam>? workItemParam = new();
 
-        //userParam = JsonConvert.DeserializeObject<List<UserParam>>(json);
-
         JObject obj = JObject.Parse(json);
         JArray array = (JArray)obj["value"];
-
-        //if (array == null)
-        //{
-        //  return Result.Failure<List<UsersDTOParam>?>("empty json");
-        //}
 
         if (array.Count != 0)
         {
@@ -52,20 +44,16 @@ namespace DataReader.Application.ParseProcess
 
       foreach (var item in array)
       {
-        int workItemId = (int)item["WorkItemId"];
+        int workItemId = item["WorkItemId"].Type != JTokenType.Null ? (int)item["WorkItemId"] : 0;
 
         AnalyticsUpdatedDate inProgressDate =
           AnalyticsUpdatedDate.
-          Create(item["InProgressDate"].
-          ToString(Formatting.Indented).
-          Trim('"')).
+          Create(item["InProgressDate"]).
           Value;
 
         AnalyticsUpdatedDate completedDate =
           AnalyticsUpdatedDate.
-          Create(item["CompletedDate"].
-          ToString(Formatting.Indented).
-          Trim('"')).
+          Create(item["CompletedDate"]).
           Value;
 
         string? inProgressDateSK = item["InProgressDateSK"]?.ToString();
@@ -73,22 +61,20 @@ namespace DataReader.Application.ParseProcess
 
         AnalyticsUpdatedDate analyticsUpdatedDate =
           AnalyticsUpdatedDate.
-          Create(item["AnalyticsUpdatedDate"].
-          ToString(Formatting.Indented).
-          Trim('"')).
+          Create(item["AnalyticsUpdatedDate"]).
           Value;
 
-        DataReaderGuid projectSK = DataReaderGuid.Create((Guid)item["ProjectSK"]).Value;
-        int workItemRevisionSK = (int)item["WorkItemRevisionSK"];
+        DataReaderGuid projectSK = DataReaderGuid.Create(item["ProjectSK"].ToString()).Value;
+        int workItemRevisionSK = item["WorkItemRevisionSK"].Type != JTokenType.Null ? (int)item["WorkItemRevisionSK"] : 0;
 
-        DataReaderGuid areaSK = DataReaderGuid.Create((Guid)item["AreaSK"]).Value;
-        DataReaderGuid iterationSK = DataReaderGuid.Create((Guid)item["IterationSK"]).Value;
-        DataReaderGuid assignedToUserSK = DataReaderGuid.Create((Guid)item["AssignedToUserSK"]).Value;
-        DataReaderGuid changedByUserSK = DataReaderGuid.Create((Guid)item["ChangedByUserSK"]).Value;
-        DataReaderGuid createdByUserSK = DataReaderGuid.Create((Guid)item["CreatedByUserSK"]).Value;
-        DataReaderGuid activatedByUserSK = DataReaderGuid.Create((Guid)item["ActivatedByUserSK"]).Value;
-        DataReaderGuid closedByUserSK = DataReaderGuid.Create((Guid)item["ClosedByUserSK"]).Value;
-        DataReaderGuid resolvedByUserSK = DataReaderGuid.Create((Guid)item["ResolvedByUserSK"]).Value;
+        DataReaderGuid areaSK = DataReaderGuid.Create(item["AreaSK"].ToString()).Value;
+        DataReaderGuid iterationSK = DataReaderGuid.Create(item["IterationSK"].ToString()).Value;
+        DataReaderGuid assignedToUserSK = DataReaderGuid.Create(item["AssignedToUserSK"].ToString()).Value;
+        DataReaderGuid changedByUserSK = DataReaderGuid.Create(item["ChangedByUserSK"].ToString()).Value;
+        DataReaderGuid createdByUserSK = DataReaderGuid.Create(item["CreatedByUserSK"].ToString()).Value;
+        DataReaderGuid activatedByUserSK = DataReaderGuid.Create(item["ActivatedByUserSK"].ToString()).Value;
+        DataReaderGuid closedByUserSK = DataReaderGuid.Create(item["ClosedByUserSK"].ToString()).Value;
+        DataReaderGuid resolvedByUserSK = DataReaderGuid.Create(item["ResolvedByUserSK"].ToString()).Value;
 
         string? activatedDateSK = item["ActivatedDateSK"]?.ToString();
         string? changedDateSK = item["ChangedDateSK"]?.ToString();
@@ -100,51 +86,39 @@ namespace DataReader.Application.ParseProcess
 
         AnalyticsUpdatedDate changedDate =
           AnalyticsUpdatedDate.
-          Create(item["ChangedDate"].
-          ToString(Formatting.Indented).
-          Trim('"')).
+          Create(item["ChangedDate"]).
           Value;
 
         AnalyticsUpdatedDate createdDate =
           AnalyticsUpdatedDate.
-          Create(item["CreatedDate"].
-          ToString(Formatting.Indented).
-          Trim('"')).
+          Create(item["CreatedDate"]).
           Value;
 
         string? state = item["State"]?.ToString();
 
         AnalyticsUpdatedDate activatedDate =
           AnalyticsUpdatedDate.
-          Create(item["ActivatedDate"].
-          ToString(Formatting.Indented).
-          Trim('"')).
+          Create(item["ActivatedDate"]).
           Value;
 
         AnalyticsUpdatedDate closedDate =
           AnalyticsUpdatedDate.
-          Create(item["ClosedDate"].
-          ToString(Formatting.Indented).
-          Trim('"')).
+          Create(item["ClosedDate"]).
           Value;
 
-        int priority = (int)item["Priority"];
+        int priority = item["Priority"].Type != JTokenType.Null ? (int)item["Priority"] : 0;
 
         AnalyticsUpdatedDate resolvedDate =
           AnalyticsUpdatedDate.
-          Create(item["ResolvedDate"].
-          ToString(Formatting.Indented).
-          Trim('"')).
+          Create(item["ResolvedDate"]).
           Value;
 
-        double completedWork = (double)item["CompletedWork"];
+        double completedWork = item["CompletedWork"].Type != JTokenType.Null ? (double)item["CompletedWork"] : 0.0;
         string? effort = item["Effort"]?.ToString();
 
         AnalyticsUpdatedDate finishDate =
           AnalyticsUpdatedDate.
-          Create(item["FinishDate"].
-          ToString(Formatting.Indented).
-          Trim('"')).
+          Create(item["FinishDate"] ).
           Value;
 
         string? originalEstimate = item["OriginalEstimate"]?.ToString();
@@ -152,14 +126,12 @@ namespace DataReader.Application.ParseProcess
         string? startDate = item["StartDate"]?.ToString();
         string? storyPoints = item["StoryPoints"]?.ToString();
         string? targetDate = item["TargetDate"]?.ToString();
-        int parentWorkItemId = (int)item["ParentWorkItemId"];
+        int parentWorkItemId = item["ParentWorkItemId"].Type != JTokenType.Null ? (int)item["ParentWorkItemId"] : 0;
         string? tagNames = item["TagNames"]?.ToString();
 
         AnalyticsUpdatedDate stateChangeDate =
           AnalyticsUpdatedDate.
-          Create(item["StateChangeDate"].
-          ToString(Formatting.Indented).
-          Trim('"')).
+          Create(item["StateChangeDate"]).
           Value;
 
         string? custom_719f69f1__002Df7d0__002D4baa__002Db6ce__002De77ad5dfcdf3 =

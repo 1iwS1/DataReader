@@ -32,6 +32,11 @@ namespace DataReader.Application.Handlers
         return workItems;
       }
 
+      if (workItems.Value?.Count == 0)
+      {
+        return new Result();
+      }
+
       return await Sync(workItems.Value);
     }
 

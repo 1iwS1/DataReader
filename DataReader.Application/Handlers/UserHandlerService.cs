@@ -5,6 +5,7 @@ using DataReader.Core.Abstractions.Services.Handlers;
 using DataReader.Core.Abstractions.Services.Parsers;
 using DataReader.Core.Contracts.Params;
 using DataReader.Core.Contracts.Requests;
+using DataReader.Core.Models;
 
 
 namespace DataReader.Application.Handlers
@@ -14,9 +15,9 @@ namespace DataReader.Application.Handlers
     private readonly IUsersService _usersService;
     private readonly IUsersJsonParserService _jsonParserService;
 
-    public UserHandlerService(IUsersService usersService, IUsersJsonParserService jsonParserService)
+    public UserHandlerService(/*IUsersService usersService, */IUsersJsonParserService jsonParserService)
     {
-      _usersService = usersService;
+      //_usersService = usersService;
       _jsonParserService = jsonParserService;
     }
 
@@ -29,6 +30,11 @@ namespace DataReader.Application.Handlers
         return users;
       }
 
+      if (users.Value?.Count == 0)
+      {
+        return new Result();
+      }
+
       return await Sync(users.Value);
     }
 
@@ -37,8 +43,8 @@ namespace DataReader.Application.Handlers
       UsersRequest usersRequest = new UsersRequest();
       usersRequest.AddUserRequests(users);
 
-      return await _usersService.SyncUser(usersRequest);
-      //throw new NotImplementedException();
+      //return await _usersService.SyncUser(usersRequest);
+      throw new NotImplementedException();
     }
   }
 }
