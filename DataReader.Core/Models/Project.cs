@@ -18,9 +18,9 @@ namespace DataReader.Core.Models
       ProjectVisibility = shell.projectVisibility;
     }
 
-    public DataReaderGuid ProjectSK {  get; }
+    public DataReaderGuid ProjectSK { get; }
     public DataReaderGuid ProjectID { get; }
-    public ProjectName ProjectName {  get; }
+    public ProjectName ProjectName { get; }
     public AnalyticsUpdatedDate AnalyticsUpdatedDate { get; }
     public string? ProjectVisibility { get; }
 
