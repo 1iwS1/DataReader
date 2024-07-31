@@ -1,5 +1,7 @@
-﻿using DataReader.DataAccess.BaseModels;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+
+using DataReader.DataAccess.BaseModels;
+using DataReader.DataAccess.Configurations;
 
 
 namespace DataReader.DataAccess
@@ -15,5 +17,14 @@ namespace DataReader.DataAccess
     public DbSet<UserBase> Users { get; set; }
     public DbSet<ProjectBase> Projects { get; set; }
     public DbSet<WorkItemBase> WorkItems { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+      modelBuilder.ApplyConfiguration(new UserConfig());
+      modelBuilder.ApplyConfiguration(new ProjectConfig());
+      modelBuilder.ApplyConfiguration(new WorkItemConfig());
+
+      base.OnModelCreating(modelBuilder);
+    }
   }
 }
