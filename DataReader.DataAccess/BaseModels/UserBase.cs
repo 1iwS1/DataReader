@@ -12,5 +12,7 @@ namespace DataReader.DataAccess.BaseModels
     public AnalyticsUpdatedDate? AnalyticsUpdatedDate { get; set; }
     public string GitHubUserId { get; set; } = string.Empty;
     public string UserType { get; set; } = string.Empty;
+
+    public List<WorkItemBase>? WorkItems { get; set; }
   }
 }

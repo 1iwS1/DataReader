@@ -11,5 +11,7 @@ namespace DataReader.DataAccess.BaseModels
     public ProjectName? ProjectName { get; set; }
     public AnalyticsUpdatedDate? AnalyticsUpdatedDate { get; set; }
     public string ProjectVisibility { get; set; } = string.Empty;
+
+    public List<WorkItemBase>? WorkItems { get; set; }
   }
 }
