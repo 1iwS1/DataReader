@@ -1,4 +1,5 @@
-﻿using DataReader.Core.ValueObjects;
+﻿using DataReader.Core.Enums;
+using DataReader.Core.ValueObjects;
 
 
 namespace DataReader.Core.Shells
@@ -6,6 +7,6 @@ namespace DataReader.Core.Shells
   public record LogParam(
     DataReaderGuid id,
     AnalyticsUpdatedDate lastSyncTime,
-    string syncResult
+    Results syncResult
   );
 }

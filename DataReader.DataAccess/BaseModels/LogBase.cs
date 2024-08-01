@@ -1,15 +1,20 @@
-﻿using DataReader.Core.ValueObjects;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+using DataReader.Core.Enums;
+using DataReader.Core.ValueObjects;
+
 
 namespace DataReader.DataAccess.BaseModels
 {
   public class LogBase
   {
     [Column("Id")]
-    public DataReaderGuid? Id { get; }
+    public DataReaderGuid? Id { get; set; }
 
     [Column("LastSyncTime")]
-    public AnalyticsUpdatedDate? LastSyncTime { get; }
-    public string? SyncResult { get; }
+    public AnalyticsUpdatedDate? LastSyncTime { get; set; }
+
+    [Column("SyncResult")]
+    public Results SyncResult { get; set; } = Results.None;
   }
 }

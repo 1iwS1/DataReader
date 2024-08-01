@@ -1,5 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
 
+using DataReader.Core.Enums;
 using DataReader.Core.Shells;
 using DataReader.Core.ValueObjects;
 
@@ -17,7 +18,7 @@ namespace DataReader.Core.Models
 
     public DataReaderGuid Id { get; }
     public AnalyticsUpdatedDate LastSyncTime { get; }
-    public string? SyncResult { get; }
+    public Results SyncResult { get; }
 
     public static Result<Log> Create(LogParam shell)
     {

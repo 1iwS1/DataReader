@@ -17,6 +17,7 @@ namespace DataReader.DataAccess
     public DbSet<UserBase> Users { get; set; }
     public DbSet<ProjectBase> Projects { get; set; }
     public DbSet<WorkItemBase> WorkItems { get; set; }
+    public DbSet<LogBase> Logs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

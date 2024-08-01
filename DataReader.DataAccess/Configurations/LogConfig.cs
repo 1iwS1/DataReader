@@ -2,6 +2,8 @@
 
 using DataReader.DataAccess.BaseModels;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using DataReader.Core.Enums;
+
 
 namespace DataReader.DataAccess.Configurations
 {
@@ -27,7 +29,10 @@ namespace DataReader.DataAccess.Configurations
 
       builder
         .Property(p => p.SyncResult)
-        .IsRequired(false);
+        .IsRequired(false)
+        .HasConversion(
+          v => v.ToString(),
+          v => (Results)Enum.Parse(typeof(Results), v));
     }
   }
 }
