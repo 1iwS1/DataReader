@@ -1,6 +1,7 @@
-﻿using DataReader.Core.ValueObjects.Project;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+using DataReader.Core.ValueObjects.Project;
 using DataReader.Core.ValueObjects;
-using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace DataReader.DataAccess.BaseModels

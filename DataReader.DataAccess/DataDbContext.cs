@@ -23,6 +23,7 @@ namespace DataReader.DataAccess
       modelBuilder.ApplyConfiguration(new UserConfig());
       modelBuilder.ApplyConfiguration(new ProjectConfig());
       modelBuilder.ApplyConfiguration(new WorkItemConfig());
+      modelBuilder.ApplyConfiguration(new LogConfig());
 
       base.OnModelCreating(modelBuilder);
     }
