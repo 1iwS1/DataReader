@@ -22,7 +22,7 @@ namespace DataReader.Core.Models
     public DataReaderGuid ProjectID { get; }
     public ProjectName ProjectName { get; }
     public AnalyticsUpdatedDate AnalyticsUpdatedDate { get; }
-    public string? ProjectVisibility { get; }
+    public string ProjectVisibility { get; } = string.Empty;
 
     public static Result<Project> Create(ProjectParam shell)
     {
