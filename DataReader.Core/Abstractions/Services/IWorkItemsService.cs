@@ -6,9 +6,9 @@ namespace DataReader.Core.Abstractions.Services
 {
   public interface IWorkItemsService
   {
-    //Task<Result> CreateWorkItem(WorkItem workItem);
-    //Task<Result<WorkItem>> GetWorkItem(int? workItemId);
-    //Task<Result> UpdateWorkItem(int? workItemId);
+    Task<Result> CreateWorkItem(WorkItem workItem);
+    Task<Result<bool>> GetWorkItem(int? workItemId);
+    Task<Result> UpdateWorkItem(int? workItemId, WorkItem workItem);
     Task<Result> SyncWorkItem(WorkItemsRequest workItemsRequest);
   }
 }

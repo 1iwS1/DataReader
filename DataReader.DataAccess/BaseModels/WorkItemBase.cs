@@ -7,7 +7,7 @@ namespace DataReader.DataAccess.BaseModels
 {
   public class WorkItemBase
   {
-    public int WorkItemId { get; set; }
+    public int? WorkItemId { get; set; }
 
     [Column("InProgressDate")]
     public AnalyticsUpdatedDate? InProgressDate { get; set; }
