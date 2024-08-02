@@ -26,8 +26,8 @@ namespace DataReader.Core.Models
     public UserName UserName { get; }
     public UserEmail UserEmail { get; }
     public AnalyticsUpdatedDate AnalyticsUpdatedDate { get; }
-    public string? GitHubUserId { get; }
-    public string? UserType { get; } = string.Empty;
+    public string GitHubUserId { get; } = string.Empty;
+    public string UserType { get; } = string.Empty;
 
     public static Result<User> Create(UserParam shell)
     {

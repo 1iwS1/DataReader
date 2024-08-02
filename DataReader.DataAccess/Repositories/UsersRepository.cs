@@ -1,4 +1,11 @@
-﻿using DataReader.Core.Abstractions.Repositories;
+﻿using CSharpFunctionalExtensions;
+
+using DataReader.Core.Abstractions.Repositories;
+using DataReader.Core.Models;
+using DataReader.Core.Shells;
+using DataReader.Core.ValueObjects;
+using DataReader.DataAccess.BaseModels;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace DataReader.DataAccess.Repositories
@@ -12,6 +19,61 @@ namespace DataReader.DataAccess.Repositories
       _dbContext = dbContext;
     }
 
+    public async Task<Result<User>> GetById(DataReaderGuid id)
+    {
+      var userBase = await _dbContext.Users
+        .AsNoTracking()
+        .FirstOrDefaultAsync(u => u.UserId == id);
 
+      if (userBase == null)
+      {
+        return Result.Failure<User>(nameof(User));
+      }
+
+      Result<User> user = User.Create(new UserParam(
+        userBase.UserSK!,
+        userBase.UserId!,
+        userBase.UserName!,
+        userBase.UserEmail!,
+        userBase.AnalyticsUpdatedDate!,
+        userBase.GitHubUserId,
+        userBase.UserType
+        ));
+
+      return user;
+    }
+
+    public async Task<Result> Create(User user)
+    {
+      var userBase = new UserBase
+      {
+        UserSK = user.UserSK,
+        UserId = user.UserId,
+        UserName = user.UserName,
+        UserEmail = user.UserEmail,
+        AnalyticsUpdatedDate = user.AnalyticsUpdatedDate,
+        GitHubUserId = user.GitHubUserId,
+        UserType = user.UserType
+      };
+
+      await _dbContext.AddAsync(userBase);
+      await _dbContext.SaveChangesAsync();
+
+      return Result.Success<User>(user);
+    }
+
+    public async Task<Result> Update(DataReaderGuid targetId, User user)
+    {
+      await _dbContext.Users
+        .Where(u => u.UserId == targetId)
+        .ExecuteUpdateAsync(u => u
+          .SetProperty(x => x.UserName, x => user.UserName)
+          .SetProperty(x => x.UserEmail, x => user.UserEmail)
+          .SetProperty(x => x.AnalyticsUpdatedDate, x => user.AnalyticsUpdatedDate)
+          .SetProperty(x => x.GitHubUserId, x => user.GitHubUserId)
+          .SetProperty(x => x.UserType, x => user.UserType));
+
+      return Result.Success<User>(user);
+    }
   }
 }
