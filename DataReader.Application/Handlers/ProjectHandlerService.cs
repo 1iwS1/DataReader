@@ -12,11 +12,11 @@ namespace DataReader.Application.Handlers
   public class ProjectHandlerService : IHandlerService<Task<Result>, List<ProjectsDTOParam>>
   {
     private readonly IServiceProcess<Task<Result>, ProjectsRequest> _projectsService;
-    private readonly IProjectsJsonParserService _projectsJsonParserService;
+    private readonly IJsonParserService<Result<List<ProjectsDTOParam>?>> _projectsJsonParserService;
 
     public ProjectHandlerService(
       IServiceProcess<Task<Result>, ProjectsRequest> projectsService,
-      IProjectsJsonParserService projectsJsonParserService
+      IJsonParserService<Result<List<ProjectsDTOParam>?>> projectsJsonParserService
       )
     {
       _projectsService = projectsService;
@@ -25,7 +25,7 @@ namespace DataReader.Application.Handlers
 
     public async Task<Result> Parsing(string json)
     {
-      Result<List<ProjectsDTOParam>?> projects = _projectsJsonParserService.ParseProject(json);
+      Result<List<ProjectsDTOParam>?> projects = _projectsJsonParserService.Parse(json);
 
       if (projects.IsFailure)
       {

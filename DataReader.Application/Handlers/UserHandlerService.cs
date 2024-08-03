@@ -12,11 +12,11 @@ namespace DataReader.Application.Handlers
   public class UserHandlerService : IHandlerService<Task<Result>, List<UsersDTOParam>>
   {
     private readonly IServiceProcess<Task<Result>, UsersRequest> _usersService;
-    private readonly IUsersJsonParserService _jsonParserService;
+    private readonly IJsonParserService<Result<List<UsersDTOParam>?>> _jsonParserService;
 
     public UserHandlerService(
       IServiceProcess<Task<Result>, UsersRequest> usersService,
-      IUsersJsonParserService jsonParserService
+      IJsonParserService<Result<List<UsersDTOParam>?>> jsonParserService
       )
     {
       _usersService = usersService;
@@ -25,7 +25,7 @@ namespace DataReader.Application.Handlers
 
     public async Task<Result> Parsing(string json)
     {
-      Result<List<UsersDTOParam>?> users = _jsonParserService.ParseUser(json);
+      Result<List<UsersDTOParam>?> users = _jsonParserService.Parse(json);
 
       if (users.IsFailure)
       {

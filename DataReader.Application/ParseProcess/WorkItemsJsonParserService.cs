@@ -9,11 +9,11 @@ using DataReader.Core.Abstractions.Services.Parsers;
 
 namespace DataReader.Application.ParseProcess
 {
-  public class WorkItemsJsonParserService : IWorkItemsJsonParserService
+  public class WorkItemsJsonParserService : IJsonParserService<Result<List<WorkItemsDTOParam>?>>
   {
     public WorkItemsJsonParserService() { }
 
-    public Result<List<WorkItemsDTOParam>?> ParseWorkItem(string json)
+    public Result<List<WorkItemsDTOParam>?> Parse(string json)
     {
       try
       {
@@ -21,11 +21,11 @@ namespace DataReader.Application.ParseProcess
         List<WorkItemParam>? workItemParam = new();
 
         JObject obj = JObject.Parse(json);
-        JArray array = (JArray)obj["value"];
+        JArray? array = (JArray?)obj["value"];
 
-        if (array.Count != 0)
+        if (array?.Count != 0)
         {
-          workItemParam = FillWorkItemParamList(array);
+          workItemParam = FillWorkItemParamList(array!);
           result = FillResultList(workItemParam);
         }
 

@@ -12,11 +12,11 @@ namespace DataReader.Application.Handlers
   public class WorkItemHandlerService : IHandlerService<Task<Result>, List<WorkItemsDTOParam>>
   {
     private readonly IServiceProcess<Task<Result>, WorkItemsRequest> _workItemsService;
-    private readonly IWorkItemsJsonParserService _workItemsJsonParserService;
+    private readonly IJsonParserService<Result<List<WorkItemsDTOParam>?>> _workItemsJsonParserService;
 
     public WorkItemHandlerService(
       IServiceProcess<Task<Result>, WorkItemsRequest> workItemsService,
-      IWorkItemsJsonParserService workItemsJsonParserService
+      IJsonParserService<Result<List<WorkItemsDTOParam>?>> workItemsJsonParserService
       )
     {
       _workItemsService = workItemsService;
@@ -25,7 +25,7 @@ namespace DataReader.Application.Handlers
 
     public async Task<Result> Parsing(string json)
     {
-      Result<List<WorkItemsDTOParam>?> workItems = _workItemsJsonParserService.ParseWorkItem(json);
+      Result<List<WorkItemsDTOParam>?> workItems = _workItemsJsonParserService.Parse(json);
 
       if (workItems.IsFailure)
       {
