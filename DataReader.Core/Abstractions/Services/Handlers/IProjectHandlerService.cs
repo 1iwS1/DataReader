@@ -6,6 +6,6 @@ namespace DataReader.Core.Abstractions.Services.Handlers
   public interface IProjectHandlerService
   {
     Task<Result> Parsing(string json);
-    Task<Result> Sync(List<ProjectsDTOParam>? projects);
+    Task<Result> Sync(List<ProjectsDTOParam> projects);
   }
 }

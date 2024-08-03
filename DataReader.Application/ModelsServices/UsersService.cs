@@ -9,7 +9,7 @@ using DataReader.Core.ValueObjects;
 
 namespace DataReader.Application.ModelsServices
 {
-  public class UsersService : IUsersService
+  public class UsersService : IServiceProcess<Task<Result>, UsersRequest>
   {
     private readonly IUsersRepository _usersRepository;
 
@@ -18,7 +18,7 @@ namespace DataReader.Application.ModelsServices
       _usersRepository = usersRepository;
     }
 
-    public async Task<Result> SyncUser(UsersRequest userRequests)
+    public async Task<Result> SyncProcess(UsersRequest userRequests)
     {
       if (userRequests.UsersRequestCollection.Count != 0)
       {
@@ -42,17 +42,17 @@ namespace DataReader.Application.ModelsServices
       return new Result<User>();
     }
 
-    public async Task<Result<User>> GetUser(DataReaderGuid userId)
+    private async Task<Result<User>> GetUser(DataReaderGuid userId)
     {
       return await _usersRepository.GetById(userId);
     }
 
-    public async Task<Result> UpdateUser(DataReaderGuid userId, User user)
+    private async Task<Result> UpdateUser(DataReaderGuid userId, User user)
     {
       return await _usersRepository.Update(userId, user);
     }
 
-    public async Task<Result> CreateUser(User user)
+    private async Task<Result> CreateUser(User user)
     {
       return await _usersRepository.Create(user);
     }

@@ -11,15 +11,15 @@ namespace DataReader.Application.Handlers
 {
   public class WorkItemHandlerService : IWorkItemHandlerService
   {
-    private readonly IWorkItemsService _workItemsService;
+    private readonly IServiceProcess<Task<Result>, WorkItemsRequest> _workItemsService;
     private readonly IWorkItemsJsonParserService _workItemsJsonParserService;
 
     public WorkItemHandlerService(
-      //IWorkItemsService workItemsService,
+      IServiceProcess<Task<Result>, WorkItemsRequest> workItemsService,
       IWorkItemsJsonParserService workItemsJsonParserService
       )
     {
-      //_workItemsService = workItemsService;
+      _workItemsService = workItemsService;
       _workItemsJsonParserService = workItemsJsonParserService;
     }
 
@@ -37,16 +37,16 @@ namespace DataReader.Application.Handlers
         return new Result();
       }
 
-      return await Sync(workItems.Value);
+      return await Sync(workItems.Value!);
     }
 
-    public async Task<Result> Sync(List<WorkItemsDTOParam>? workItems)
+    public async Task<Result> Sync(List<WorkItemsDTOParam> workItems)
     {
       WorkItemsRequest workItemsRequest = new();
       workItemsRequest.AddWorkItemRequests(workItems);
 
-      //return await _workItemsService.SyncWorkItem(workItemsRequest);
-      throw new NotImplementedException();
+      return await _workItemsService.SyncProcess(workItemsRequest);
+      //throw new NotImplementedException();
     }
   }
 }

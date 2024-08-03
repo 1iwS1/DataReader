@@ -9,7 +9,7 @@ using DataReader.Core.ValueObjects;
 
 namespace DataReader.Application.Services
 {
-  public class ProjectsService : IProjectsService
+  public class ProjectsService : IServiceProcess<Task<Result>, ProjectsRequest>
   {
     private readonly IProjectsRepository _projectsRepository;
 
@@ -18,7 +18,7 @@ namespace DataReader.Application.Services
       _projectsRepository = projectsRepository;
     }
 
-    public async Task<Result> SyncProject(ProjectsRequest projectsRequest)
+    public async Task<Result> SyncProcess(ProjectsRequest projectsRequest)
     {
       if (projectsRequest.ProjectsRequestCollection.Count != 0)
       {
@@ -42,17 +42,17 @@ namespace DataReader.Application.Services
       return new Result<Project>();
     }
 
-    public async Task<Result<Project>> GetProject(DataReaderGuid projectId)
+    private async Task<Result<Project>> GetProject(DataReaderGuid projectId)
     {
       return await _projectsRepository.GetById(projectId);
     }
 
-    public async Task<Result> CreateProject(Project user)
+    private async Task<Result> CreateProject(Project user)
     {
       return await _projectsRepository.Create(user);
     }
 
-    public async Task<Result> UpdateProject(DataReaderGuid projectId, Project project)
+    private async Task<Result> UpdateProject(DataReaderGuid projectId, Project project)
     {
       return await _projectsRepository.Update(projectId, project);
     }

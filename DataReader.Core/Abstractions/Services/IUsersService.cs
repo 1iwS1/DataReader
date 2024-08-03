@@ -8,9 +8,6 @@ namespace DataReader.Core.Abstractions.Services
 {
   public interface IUsersService
   {
-    Task<Result> CreateUser(User user);
-    Task<Result<User>> GetUser(DataReaderGuid userId);
-    Task<Result> UpdateUser(DataReaderGuid userId, User user);
     Task<Result> SyncUser(UsersRequest userRequests);
   }
 }

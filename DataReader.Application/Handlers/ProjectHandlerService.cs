@@ -12,12 +12,15 @@ namespace DataReader.Application.Handlers
 {
   public class ProjectHandlerService : IProjectHandlerService
   {
-    private readonly IProjectsService _projectsService;
+    private readonly IServiceProcess<Task<Result>, ProjectsRequest> _projectsService;
     private readonly IProjectsJsonParserService _projectsJsonParserService;
 
-    public ProjectHandlerService(/*IProjectsService projectsService, */IProjectsJsonParserService projectsJsonParserService)
+    public ProjectHandlerService(
+      IServiceProcess<Task<Result>, ProjectsRequest> projectsService,
+      IProjectsJsonParserService projectsJsonParserService
+      )
     {
-      //_projectsService = projectsService;
+      _projectsService = projectsService;
       _projectsJsonParserService = projectsJsonParserService;
     }
 
@@ -35,16 +38,16 @@ namespace DataReader.Application.Handlers
         return new Result();
       }
 
-      return await Sync(projects.Value);
+      return await Sync(projects.Value!);
     }
 
-    public async Task<Result> Sync(List<ProjectsDTOParam>? projects)
+    public async Task<Result> Sync(List<ProjectsDTOParam> projects)
     {
       ProjectsRequest projectsRequest = new ProjectsRequest();
       projectsRequest.AddProjectRequests(projects);
 
-      //return await _projectsService.SyncProject(projectsRequest);
-      throw new NotImplementedException();
+      return await _projectsService.SyncProcess(projectsRequest);
+      //throw new NotImplementedException();
     }
   }
 }
