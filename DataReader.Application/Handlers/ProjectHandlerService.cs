@@ -5,12 +5,11 @@ using DataReader.Core.Abstractions.Services.Handlers;
 using DataReader.Core.Abstractions.Services.Parsers;
 using DataReader.Core.Contracts.Params;
 using DataReader.Core.Contracts.Requests;
-using DataReader.Core.Models;
 
 
 namespace DataReader.Application.Handlers
 {
-  public class ProjectHandlerService : IProjectHandlerService
+  public class ProjectHandlerService : IHandlerService<Task<Result>, List<ProjectsDTOParam>>
   {
     private readonly IServiceProcess<Task<Result>, ProjectsRequest> _projectsService;
     private readonly IProjectsJsonParserService _projectsJsonParserService;
@@ -43,7 +42,7 @@ namespace DataReader.Application.Handlers
 
     public async Task<Result> Sync(List<ProjectsDTOParam> projects)
     {
-      ProjectsRequest projectsRequest = new ProjectsRequest();
+      ProjectsRequest projectsRequest = new();
       projectsRequest.AddProjectRequests(projects);
 
       return await _projectsService.SyncProcess(projectsRequest);

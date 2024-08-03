@@ -9,7 +9,7 @@ using DataReader.Core.Contracts.Requests;
 
 namespace DataReader.Application.Handlers
 {
-  public class WorkItemHandlerService : IWorkItemHandlerService
+  public class WorkItemHandlerService : IHandlerService<Task<Result>, List<WorkItemsDTOParam>>
   {
     private readonly IServiceProcess<Task<Result>, WorkItemsRequest> _workItemsService;
     private readonly IWorkItemsJsonParserService _workItemsJsonParserService;
