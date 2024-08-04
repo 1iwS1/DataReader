@@ -2,6 +2,5 @@
 {
   public class GetLastSuccessfulLogQuery
   {
-    public string sfjdf {  get; set; }
   }
 }
