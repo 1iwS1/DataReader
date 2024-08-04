@@ -2,7 +2,7 @@
 using CSharpFunctionalExtensions;
 
 using DataReader.Core.Abstractions.DALHandlers;
-using DataReader.Core.Queries;
+using DataReader.Core.Queries.WorkItems;
 
 
 namespace DataReader.DataAccess.Handlers.WorkItems
@@ -16,11 +16,11 @@ namespace DataReader.DataAccess.Handlers.WorkItems
       _dbContext = dbContext;
     }
 
-    public async Task<Result<bool>> Handle(GetByIdWorkItemQuery command)
+    public async Task<Result<bool>> Handle(GetByIdWorkItemQuery query)
     {
       var workItemBase = await _dbContext.WorkItems
         .AsNoTracking()
-        .FirstOrDefaultAsync(w => w.WorkItemId == command.id);
+        .FirstOrDefaultAsync(w => w.WorkItemId == query.id);
 
       if (workItemBase == null)
       {

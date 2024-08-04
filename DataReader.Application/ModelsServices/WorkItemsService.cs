@@ -5,12 +5,12 @@ using DataReader.Core.Abstractions.Services;
 using DataReader.Core.Contracts.Requests;
 using DataReader.Core.Models;
 using DataReader.Core.Commands.WorkItems;
-using DataReader.Core.Queries;
+using DataReader.Core.Queries.WorkItems;
 
 
 namespace DataReader.Application.Services
 {
-  public class WorkItemsService : IServiceProcess<Task<Result>, WorkItemsRequest>
+    public class WorkItemsService : IServiceProcess<Task<Result>, WorkItemsRequest>
   {
     private readonly ICommandHandler<Task<Result<bool>>, CreateWorkItemCommand> _createCommandHandler;
     private readonly ICommandHandler<Task<Result<bool>>, UpdateWorkItemCommand> _updateCommandHandler;
