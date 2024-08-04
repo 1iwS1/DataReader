@@ -1,20 +1,31 @@
 ﻿using CSharpFunctionalExtensions;
 
-using DataReader.Core.Abstractions.Repositories;
+using DataReader.Core.Abstractions.DALHandlers;
 using DataReader.Core.Abstractions.Services;
 using DataReader.Core.Contracts.Requests;
 using DataReader.Core.Models;
+using DataReader.Core.Commands.WorkItems;
+using DataReader.Core.Queries;
 
 
 namespace DataReader.Application.Services
 {
   public class WorkItemsService : IServiceProcess<Task<Result>, WorkItemsRequest>
   {
-    private readonly IWorkItemsRepository _workItemsRepository;
+    private readonly ICommandHandler<Task<Result<bool>>, CreateWorkItemCommand> _createCommandHandler;
+    private readonly ICommandHandler<Task<Result<bool>>, UpdateWorkItemCommand> _updateCommandHandler;
 
-    public WorkItemsService(IWorkItemsRepository workItemsRepository)
+    private readonly IQueryHandler<Task<Result<bool>>, GetByIdWorkItemQuery> _getByIdQueryHandler;
+
+    public WorkItemsService(
+      ICommandHandler<Task<Result<bool>>, CreateWorkItemCommand> createCommandHandler,
+      ICommandHandler<Task<Result<bool>>, UpdateWorkItemCommand> updateCommandHandler,
+      IQueryHandler<Task<Result<bool>>, GetByIdWorkItemQuery> getByIdQueryHandler
+      )
     {
-      _workItemsRepository = workItemsRepository;
+      _createCommandHandler = createCommandHandler;
+      _updateCommandHandler = updateCommandHandler;
+      _getByIdQueryHandler = getByIdQueryHandler;
     }
 
     public async Task<Result> SyncProcess(WorkItemsRequest workItemsRequest)
@@ -22,35 +33,43 @@ namespace DataReader.Application.Services
       foreach (var request in workItemsRequest.WorkItemsRequestCollection)
       {
         Result<WorkItem> workItem = WorkItem.Create(request.shell);
-        Result<bool> workItemToCompareWith = await GetWorkItem(workItem.Value.WorkItemId);
+        Result<bool> workItemToCompareWith = await GetWorkItem(new() { id = workItem.Value.WorkItemId });
+
 
         if (workItemToCompareWith.Value)
         {
-          await UpdateWorkItem(workItem.Value.WorkItemId, workItem.Value);
+          UpdateWorkItemCommand updateCommand = new()
+          {
+            targetId = workItem.Value.WorkItemId,
+            workItem = workItem.Value
+          };
+
+          await UpdateWorkItem(updateCommand);
         }
 
         else
         {
-          await CreateWorkItem(workItem.Value);
+          CreateWorkItemCommand createCommand = new() { workItem = workItem.Value };
+          await CreateWorkItem(createCommand);
         }
       }
 
       return Result.Success();
     }
 
-    private async Task<Result<bool>> GetWorkItem(int? workItemId)
+    private async Task<Result<bool>> GetWorkItem(GetByIdWorkItemQuery command)
     {
-      return await _workItemsRepository.GetById(workItemId);
+      return await _getByIdQueryHandler.Handle(command);
     }
 
-    private async Task<Result<bool>> UpdateWorkItem(int? workItemId, WorkItem workItem)
+    private async Task<Result<bool>> UpdateWorkItem(UpdateWorkItemCommand command)
     {
-      return await _workItemsRepository.Update(workItemId, workItem);
+      return await _updateCommandHandler.Handle(command);
     }
 
-    private async Task<Result<bool>> CreateWorkItem(WorkItem workItem)
+    private async Task<Result<bool>> CreateWorkItem(CreateWorkItemCommand command)
     {
-      return await _workItemsRepository.Create(workItem);
+      return await _createCommandHandler.Handle(command);
     }
   }
 }
