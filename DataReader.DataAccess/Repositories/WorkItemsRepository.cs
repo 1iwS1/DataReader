@@ -31,7 +31,7 @@ namespace DataReader.DataAccess.Repositories
       return true;
     }
 
-    public async Task<Result> Create(WorkItem workItem)
+    public async Task<Result<bool>> Create(WorkItem workItem)
     {
       var workItemBase = new WorkItemBase
       {
@@ -88,10 +88,10 @@ namespace DataReader.DataAccess.Repositories
       await _dbContext.AddAsync(workItemBase);
       await _dbContext.SaveChangesAsync();
 
-      return Result.Success<WorkItem>(workItem);
+      return true;
     }
 
-    public async Task<Result> Update(int? targetId, WorkItem workItem)
+    public async Task<Result<bool>> Update(int? targetId, WorkItem workItem)
     {
       await _dbContext.WorkItems
         .Where(w => w.WorkItemId == targetId)
@@ -145,7 +145,7 @@ namespace DataReader.DataAccess.Repositories
           .SetProperty(x => x.ProjectSK, x => workItem.ProjectSK)
           );
 
-      return Result.Success<WorkItem>(workItem);
+      return true;
     }
   }
 }

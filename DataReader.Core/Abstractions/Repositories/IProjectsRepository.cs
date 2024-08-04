@@ -8,8 +8,8 @@ namespace DataReader.Core.Abstractions.Repositories
 {
   public interface IProjectsRepository
   {
-    Task<Result> Create(Project project);
-    Task<Result<Project>> GetById(DataReaderGuid id);
-    Task<Result> Update(DataReaderGuid targetId, Project project);
+    Task<Result<bool>> Create(Project project);
+    Task<Result<bool>> GetById(DataReaderGuid id);
+    Task<Result<bool>> Update(DataReaderGuid targetId, Project project);
   }
 }

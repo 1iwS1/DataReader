@@ -16,14 +16,14 @@ namespace DataReader.Application.Handlers
       _logsService = logsService;
     }
 
-    //public async Task<Result> Get()
-    //{
-    //  return await _logsService.GetLog();
-    //}
+    public async Task<Result> Get()
+    {
+      return await _logsService.GetLastSuccessfulLog();
+    }
 
-    //public async Task<Result> Create(Log log)
-    //{
-    //  return await _logsService.CreateLog(log);
-    //}
+    public async Task<Result> Create(Log log)
+    {
+      return await _logsService.CreateLog(log);
+    }
   }
 }

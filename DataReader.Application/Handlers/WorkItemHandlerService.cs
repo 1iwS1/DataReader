@@ -34,7 +34,7 @@ namespace DataReader.Application.Handlers
 
       if (workItems.Value?.Count == 0)
       {
-        return new Result();
+        return Result.Success(workItems);
       }
 
       return await Sync(workItems.Value!);

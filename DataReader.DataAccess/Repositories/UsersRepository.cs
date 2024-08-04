@@ -1,11 +1,10 @@
-﻿using CSharpFunctionalExtensions;
+﻿using Microsoft.EntityFrameworkCore;
+using CSharpFunctionalExtensions;
 
 using DataReader.Core.Abstractions.Repositories;
 using DataReader.Core.Models;
-using DataReader.Core.Shells;
 using DataReader.Core.ValueObjects;
 using DataReader.DataAccess.BaseModels;
-using Microsoft.EntityFrameworkCore;
 
 
 namespace DataReader.DataAccess.Repositories
@@ -19,7 +18,7 @@ namespace DataReader.DataAccess.Repositories
       _dbContext = dbContext;
     }
 
-    public async Task<Result<User>> GetById(DataReaderGuid id)
+    public async Task<Result<bool>> GetById(DataReaderGuid id)
     {
       var userBase = await _dbContext.Users
         .AsNoTracking()
@@ -27,23 +26,13 @@ namespace DataReader.DataAccess.Repositories
 
       if (userBase == null)
       {
-        return Result.Failure<User>(nameof(User));
+        return false;
       }
 
-      Result<User> user = User.Create(new UserParam(
-        userBase.UserSK!,
-        userBase.UserId!,
-        userBase.UserName!,
-        userBase.UserEmail!,
-        userBase.AnalyticsUpdatedDate!,
-        userBase.GitHubUserId,
-        userBase.UserType
-        ));
-
-      return user;
+      return true;
     }
 
-    public async Task<Result> Create(User user)
+    public async Task<Result<bool>> Create(User user)
     {
       var userBase = new UserBase
       {
@@ -59,10 +48,10 @@ namespace DataReader.DataAccess.Repositories
       await _dbContext.AddAsync(userBase);
       await _dbContext.SaveChangesAsync();
 
-      return Result.Success<User>(user);
+      return true;
     }
 
-    public async Task<Result> Update(DataReaderGuid targetId, User user)
+    public async Task<Result<bool>> Update(DataReaderGuid targetId, User user)
     {
       await _dbContext.Users
         .Where(u => u.UserId == targetId)
@@ -73,7 +62,7 @@ namespace DataReader.DataAccess.Repositories
           .SetProperty(x => x.GitHubUserId, x => user.GitHubUserId)
           .SetProperty(x => x.UserType, x => user.UserType));
 
-      return Result.Success<User>(user);
+      return true;
     }
   }
 }

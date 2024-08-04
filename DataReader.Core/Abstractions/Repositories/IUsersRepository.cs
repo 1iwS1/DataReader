@@ -6,8 +6,8 @@ namespace DataReader.Core.Abstractions.Repositories
 {
   public interface IUsersRepository
   {
-    Task<Result> Create(User user);
-    Task<Result<User>> GetById(DataReaderGuid id);
-    Task<Result> Update(DataReaderGuid targetId, User user);
+    Task<Result<bool>> Create(User user);
+    Task<Result<bool>> GetById(DataReaderGuid id);
+    Task<Result<bool>> Update(DataReaderGuid targetId, User user);
   }
 }

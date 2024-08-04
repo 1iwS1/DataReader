@@ -20,39 +20,36 @@ namespace DataReader.Application.ModelsServices
 
     public async Task<Result> SyncProcess(UsersRequest userRequests)
     {
-      if (userRequests.UsersRequestCollection.Count != 0)
+      foreach (var request in userRequests.UsersRequestCollection)
       {
-        foreach (var request in userRequests.UsersRequestCollection)
+        Result<User> user = User.Create(request.shell);
+        Result<bool> userToCompareWith = await GetUser(user.Value.UserId);
+
+        if (userToCompareWith.Value)
         {
-          Result<User> user = User.Create(request.shell);
-          Result<User> userToCompareWith = await GetUser(user.Value.UserId);
+          await UpdateUser(user.Value.UserId, user.Value);
+        }
 
-          if (userToCompareWith.IsFailure)
-          {
-            return await CreateUser(user.Value);
-          }
-
-          else
-          {
-            return await UpdateUser(user.Value.UserId, user.Value);
-          }
+        else
+        {
+          await CreateUser(user.Value);
         }
       }
 
-      return new Result<User>();
+      return Result.Success();
     }
 
-    private async Task<Result<User>> GetUser(DataReaderGuid userId)
+    private async Task<Result<bool>> GetUser(DataReaderGuid userId)
     {
       return await _usersRepository.GetById(userId);
     }
 
-    private async Task<Result> UpdateUser(DataReaderGuid userId, User user)
+    private async Task<Result<bool>> UpdateUser(DataReaderGuid userId, User user)
     {
       return await _usersRepository.Update(userId, user);
     }
 
-    private async Task<Result> CreateUser(User user)
+    private async Task<Result<bool>> CreateUser(User user)
     {
       return await _usersRepository.Create(user);
     }

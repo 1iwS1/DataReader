@@ -34,7 +34,7 @@ namespace DataReader.Application.Handlers
 
       if (projects.Value?.Count == 0)
       {
-        return new Result();
+        return Result.Success();
       }
 
       return await Sync(projects.Value!);

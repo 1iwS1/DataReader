@@ -4,7 +4,6 @@ using CSharpFunctionalExtensions;
 using DataReader.Core.Abstractions.Repositories;
 using DataReader.Core.Models;
 using DataReader.Core.ValueObjects;
-using DataReader.Core.Shells;
 using DataReader.DataAccess.BaseModels;
 
 
@@ -19,7 +18,7 @@ namespace DataReader.DataAccess.Repositories
       _dbContext = dbContext;
     }
 
-    public async Task<Result<Project>> GetById(DataReaderGuid id)
+    public async Task<Result<bool>> GetById(DataReaderGuid id)
     {
       var projectBase = await _dbContext.Projects
         .AsNoTracking()
@@ -27,21 +26,13 @@ namespace DataReader.DataAccess.Repositories
 
       if (projectBase == null)
       {
-        return Result.Failure<Project>(nameof(projectBase));
+        return false;
       }
 
-      Result<Project> project = Project.Create(new ProjectParam(
-        projectBase.ProjectSK!, 
-        projectBase.ProjectID!, 
-        projectBase.ProjectName!,
-        projectBase.AnalyticsUpdatedDate!,
-        projectBase.ProjectVisibility
-        ));
-
-      return project;
+      return true;
     }
 
-    public async Task<Result> Create(Project project)
+    public async Task<Result<bool>> Create(Project project)
     {
       var projectBase = new ProjectBase
       {
@@ -55,10 +46,10 @@ namespace DataReader.DataAccess.Repositories
       await _dbContext.AddAsync(projectBase);
       await _dbContext.SaveChangesAsync();
 
-      return Result.Success<Project>(project);
+      return true;
     }
 
-    public async Task<Result> Update(DataReaderGuid targetId, Project project)
+    public async Task<Result<bool>> Update(DataReaderGuid targetId, Project project)
     {
       await _dbContext.Projects
        .Where(p => p.ProjectID == targetId)
@@ -67,7 +58,7 @@ namespace DataReader.DataAccess.Repositories
          .SetProperty(x => x.AnalyticsUpdatedDate, x => project.AnalyticsUpdatedDate)
          .SetProperty(x => x.ProjectVisibility, x => project.ProjectVisibility));
 
-      return Result.Success<Project>(project);
+      return true;
     }
   }
 }

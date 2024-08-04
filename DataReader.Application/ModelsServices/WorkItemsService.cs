@@ -19,26 +19,23 @@ namespace DataReader.Application.Services
 
     public async Task<Result> SyncProcess(WorkItemsRequest workItemsRequest)
     {
-      if (workItemsRequest.WorkItemsRequestCollection.Count != 0)
+      foreach (var request in workItemsRequest.WorkItemsRequestCollection)
       {
-        foreach (var request in workItemsRequest.WorkItemsRequestCollection)
+        Result<WorkItem> workItem = WorkItem.Create(request.shell);
+        Result<bool> workItemToCompareWith = await GetWorkItem(workItem.Value.WorkItemId);
+
+        if (workItemToCompareWith.Value)
         {
-          Result<WorkItem> workItem = WorkItem.Create(request.shell);
-          Result<bool> workItemToCompareWith = await GetWorkItem(workItem.Value.WorkItemId);
+          await UpdateWorkItem(workItem.Value.WorkItemId, workItem.Value);
+        }
 
-          if (workItemToCompareWith.Value)
-          {
-            return await UpdateWorkItem(workItem.Value.WorkItemId, workItem.Value);
-          }
-
-          else
-          {
-            return await CreateWorkItem(workItem.Value);
-          }
+        else
+        {
+          await CreateWorkItem(workItem.Value);
         }
       }
 
-      return new Result<WorkItem>();
+      return Result.Success();
     }
 
     private async Task<Result<bool>> GetWorkItem(int? workItemId)
@@ -46,12 +43,12 @@ namespace DataReader.Application.Services
       return await _workItemsRepository.GetById(workItemId);
     }
 
-    private async Task<Result> UpdateWorkItem(int? workItemId, WorkItem workItem)
+    private async Task<Result<bool>> UpdateWorkItem(int? workItemId, WorkItem workItem)
     {
       return await _workItemsRepository.Update(workItemId, workItem);
     }
 
-    private async Task<Result> CreateWorkItem(WorkItem workItem)
+    private async Task<Result<bool>> CreateWorkItem(WorkItem workItem)
     {
       return await _workItemsRepository.Create(workItem);
     }

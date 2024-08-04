@@ -25,34 +25,34 @@ namespace DataReader.Application.Services
         foreach (var request in projectsRequest.ProjectsRequestCollection)
         {
           Result<Project> project = Project.Create(request.shell);
-          Result<Project> projectToCompareWith = await GetProject(project.Value.ProjectID);
+          Result<bool> projectToCompareWith = await GetProject(project.Value.ProjectID);
 
-          if (projectToCompareWith.IsFailure)
+          if (projectToCompareWith.Value)
           {
-            return await CreateProject(project.Value);
+            await UpdateProject(project.Value.ProjectID, project.Value);
           }
 
           else
           {
-            return await UpdateProject(project.Value.ProjectID, project.Value);
+            await CreateProject(project.Value);
           }
         }
       }
 
-      return new Result<Project>();
+      return Result.Success();
     }
 
-    private async Task<Result<Project>> GetProject(DataReaderGuid projectId)
+    private async Task<Result<bool>> GetProject(DataReaderGuid projectId)
     {
       return await _projectsRepository.GetById(projectId);
     }
 
-    private async Task<Result> CreateProject(Project user)
+    private async Task<Result<bool>> CreateProject(Project user)
     {
       return await _projectsRepository.Create(user);
     }
 
-    private async Task<Result> UpdateProject(DataReaderGuid projectId, Project project)
+    private async Task<Result<bool>> UpdateProject(DataReaderGuid projectId, Project project)
     {
       return await _projectsRepository.Update(projectId, project);
     }

@@ -6,8 +6,8 @@ namespace DataReader.Core.Abstractions.Repositories
 {
   public interface IWorkItemsRepository
   {
-    Task<Result> Create(WorkItem workItem);
+    Task<Result<bool>> Create(WorkItem workItem);
     Task<Result<bool>> GetById(int? id);
-    Task<Result> Update(int? targetId, WorkItem workItem);
+    Task<Result<bool>> Update(int? targetId, WorkItem workItem);
   }
 }
