@@ -65,16 +65,16 @@ namespace DataReader.Core.Models
     public string? InProgressDateSK { get; }
     public string? CompletedDateSK { get; }
     public AnalyticsUpdatedDate AnalyticsUpdatedDate { get; }
-    public DataReaderGuid ProjectSK { get; }
+    public DataReaderGuid ProjectSK { get; } // foreign key Project
     public int? WorkItemRevisionSK { get; }
-    public DataReaderGuid AreaSK { get; }
-    public DataReaderGuid IterationSK { get; }
-    public DataReaderGuid AssignedToUserSK { get; }
-    public DataReaderGuid ChangedByUserSK { get; }
-    public DataReaderGuid CreatedByUserSK { get; }
-    public DataReaderGuid ActivatedByUserSK { get; }
-    public DataReaderGuid ClosedByUserSK { get; }
-    public DataReaderGuid ResolvedByUserSK { get; }
+    public DataReaderGuid AreaSK { get; } // понадобятся в будущем
+    public DataReaderGuid IterationSK { get; } // понадобятся в будущем
+    public DataReaderGuid AssignedToUserSK { get; } // foreign key Users
+    public DataReaderGuid ChangedByUserSK { get; } // foreign key Users
+    public DataReaderGuid CreatedByUserSK { get; } // foreign key Users
+    public DataReaderGuid ActivatedByUserSK { get; } // foreign key Users
+    public DataReaderGuid ClosedByUserSK { get; } // foreign key Users
+    public DataReaderGuid ResolvedByUserSK { get; } // foreign key Users
     public string? ActivatedDateSK { get; }
     public string? ChangedDateSK { get; }
     public string? ClosedDateSK { get; }

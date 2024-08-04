@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DataReader.Application\DataReader.Application.csproj" />
     <ProjectReference Include="..\DataReader.Core\DataReader.Core.csproj" />
+    <ProjectReference Include="..\DataReader.DataAccess\DataReader.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

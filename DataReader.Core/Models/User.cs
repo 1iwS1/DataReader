@@ -21,22 +21,13 @@ namespace DataReader.Core.Models
       UserType = shell.userType;
     }
 
-    [JsonProperty("UserSK")]
     public DataReaderGuid UserSK { get; }
-
-    [JsonProperty("UserId")]
     public DataReaderGuid UserId { get; }
-
-    [JsonProperty("UserName")]
     public UserName UserName { get; }
-
-    [JsonProperty("UserEmail")]
     public UserEmail UserEmail { get; }
-
-    [JsonProperty("AnalyticsUpdatedDate")]
     public AnalyticsUpdatedDate AnalyticsUpdatedDate { get; }
-    public string? GitHubUserId { get; }
-    public string? UserType { get; } = string.Empty;
+    public string GitHubUserId { get; } = string.Empty;
+    public string UserType { get; } = string.Empty;
 
     public static Result<User> Create(UserParam shell)
     {

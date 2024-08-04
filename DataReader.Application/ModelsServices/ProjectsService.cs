@@ -1,60 +1,76 @@
 ﻿using CSharpFunctionalExtensions;
 
-using DataReader.Core.Abstractions.Repositories;
+using DataReader.Core.Abstractions.DALHandlers;
 using DataReader.Core.Abstractions.Services;
+using DataReader.Core.Commands.Projects;
 using DataReader.Core.Contracts.Requests;
 using DataReader.Core.Models;
-using DataReader.Core.ValueObjects;
+using DataReader.Core.Queries.Projects;
 
 
 namespace DataReader.Application.Services
 {
-  public class ProjectsService : IProjectsService
+  public class ProjectsService : IServiceProcess<Task<Result>, ProjectsRequest>
   {
-    private readonly IProjectsRepository _projectsRepository;
+    private readonly IQueryHandler<Task<Result<bool>>, GetByIdProjectQuery> _getByIdQueryHandler;
+    private readonly ICommandHandler<Task<Result<bool>>, CreateProjectCommand> _createCommandHandler;
+    private readonly ICommandHandler<Task<Result<bool>>, UpdateProjectCommand> _updateCommandHandler;
 
-    public ProjectsService(IProjectsRepository projectsRepository)
+    public ProjectsService(
+      IQueryHandler<Task<Result<bool>>, GetByIdProjectQuery> getByIdQueryHandler,
+      ICommandHandler<Task<Result<bool>>, CreateProjectCommand> createCommandHandler,
+      ICommandHandler<Task<Result<bool>>, UpdateProjectCommand> updateCommandHandler
+      )
     {
-      _projectsRepository = projectsRepository;
+      _getByIdQueryHandler = getByIdQueryHandler;
+      _createCommandHandler = createCommandHandler;
+      _updateCommandHandler = updateCommandHandler;
     }
 
-    public async Task<Result> SyncProject(ProjectsRequest projectsRequest)
+    public async Task<Result> SyncProcess(ProjectsRequest projectsRequest)
     {
       if (projectsRequest.ProjectsRequestCollection.Count != 0)
       {
         foreach (var request in projectsRequest.ProjectsRequestCollection)
         {
           Result<Project> project = Project.Create(request.shell);
-          //Result<Project> projectCheck = await GetProject(project.Value.ProjectID);
+          Result<bool> projectToCompareWith = await GetProject(new() { id = project.Value.ProjectID });
 
-          //if (projectCheck.Value != null)
-          //{
-          //  return await UpdateProject(project.Value.ProjectID);
-          //}
+          if (projectToCompareWith.Value)
+          {
+            UpdateProjectCommand updateCommand = new()
+            {
+              targetId = project.Value.ProjectID,
+              project = project.Value
+            };
 
-          //else
-          //{
-          //  return await CreateProject(project.Value);
-          //}
+            await UpdateProject(updateCommand);
+          }
+
+          else
+          {
+            CreateProjectCommand createCommand = new() { project = project.Value };
+            await CreateProject(createCommand);
+          }
         }
       }
 
-      return new Result<Project>();
+      return Result.Success();
     }
 
-    //public async Task<Result<Project>> GetProject(DataReaderGuid projectId)
-    //{
-    //  return await _projectsRepository.
-    //}
+    private async Task<Result<bool>> GetProject(GetByIdProjectQuery query)
+    {
+      return await _getByIdQueryHandler.Handle(query);
+    }
 
-    //public async Task<Result> UpdateProject(DataReaderGuid projectId)
-    //{
-    //  return await _projectsRepository.
-    //}
+    private async Task<Result<bool>> CreateProject(CreateProjectCommand command)
+    {
+      return await _createCommandHandler.Handle(command);
+    }
 
-    //public async Task<Result> CreateProject(Project user)
-    //{
-    //  return await _projectsRepository.
-    //}
+    private async Task<Result<bool>> UpdateProject(UpdateProjectCommand command)
+    {
+      return await _updateCommandHandler.Handle(command);
+    }
   }
 }

@@ -9,23 +9,23 @@ using DataReader.Core.Contracts.Requests;
 
 namespace DataReader.Application.Handlers
 {
-  public class WorkItemHandlerService : IWorkItemHandlerService
+  public class WorkItemHandlerService : IHandlerService<Task<Result>, List<WorkItemsDTOParam>>
   {
-    private readonly IWorkItemsService _workItemsService;
-    private readonly IWorkItemsJsonParserService _workItemsJsonParserService;
+    private readonly IServiceProcess<Task<Result>, WorkItemsRequest> _workItemsService;
+    private readonly IJsonParserService<Result<List<WorkItemsDTOParam>?>> _workItemsJsonParserService;
 
     public WorkItemHandlerService(
-      //IWorkItemsService workItemsService,
-      IWorkItemsJsonParserService workItemsJsonParserService
+      IServiceProcess<Task<Result>, WorkItemsRequest> workItemsService,
+      IJsonParserService<Result<List<WorkItemsDTOParam>?>> workItemsJsonParserService
       )
     {
-      //_workItemsService = workItemsService;
+      _workItemsService = workItemsService;
       _workItemsJsonParserService = workItemsJsonParserService;
     }
 
     public async Task<Result> Parsing(string json)
     {
-      Result<List<WorkItemsDTOParam>?> workItems = _workItemsJsonParserService.ParseWorkItem(json);
+      Result<List<WorkItemsDTOParam>?> workItems = _workItemsJsonParserService.Parse(json);
 
       if (workItems.IsFailure)
       {
@@ -34,19 +34,19 @@ namespace DataReader.Application.Handlers
 
       if (workItems.Value?.Count == 0)
       {
-        return new Result();
+        return Result.Success(workItems);
       }
 
-      return await Sync(workItems.Value);
+      return await Sync(workItems.Value!);
     }
 
-    public async Task<Result> Sync(List<WorkItemsDTOParam>? workItems)
+    public async Task<Result> Sync(List<WorkItemsDTOParam> workItems)
     {
       WorkItemsRequest workItemsRequest = new();
       workItemsRequest.AddWorkItemRequests(workItems);
 
-      //return await _workItemsService.SyncWorkItem(workItemsRequest);
-      throw new NotImplementedException();
+      return await _workItemsService.SyncProcess(workItemsRequest);
+      //throw new NotImplementedException();
     }
   }
 }

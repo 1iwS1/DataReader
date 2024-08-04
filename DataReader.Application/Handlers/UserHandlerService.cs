@@ -5,25 +5,27 @@ using DataReader.Core.Abstractions.Services.Handlers;
 using DataReader.Core.Abstractions.Services.Parsers;
 using DataReader.Core.Contracts.Params;
 using DataReader.Core.Contracts.Requests;
-using DataReader.Core.Models;
 
 
 namespace DataReader.Application.Handlers
 {
-  public class UserHandlerService : IUserHandlerService
+  public class UserHandlerService : IHandlerService<Task<Result>, List<UsersDTOParam>>
   {
-    private readonly IUsersService _usersService;
-    private readonly IUsersJsonParserService _jsonParserService;
+    private readonly IServiceProcess<Task<Result>, UsersRequest> _usersService;
+    private readonly IJsonParserService<Result<List<UsersDTOParam>?>> _jsonParserService;
 
-    public UserHandlerService(/*IUsersService usersService, */IUsersJsonParserService jsonParserService)
+    public UserHandlerService(
+      IServiceProcess<Task<Result>, UsersRequest> usersService,
+      IJsonParserService<Result<List<UsersDTOParam>?>> jsonParserService
+      )
     {
-      //_usersService = usersService;
+      _usersService = usersService;
       _jsonParserService = jsonParserService;
     }
 
     public async Task<Result> Parsing(string json)
     {
-      Result<List<UsersDTOParam>?> users = _jsonParserService.ParseUser(json);
+      Result<List<UsersDTOParam>?> users = _jsonParserService.Parse(json);
 
       if (users.IsFailure)
       {
@@ -32,19 +34,19 @@ namespace DataReader.Application.Handlers
 
       if (users.Value?.Count == 0)
       {
-        return new Result();
+        return Result.Success();
       }
 
-      return await Sync(users.Value);
+      return await Sync(users.Value!);
     }
 
-    public async Task<Result> Sync(List<UsersDTOParam>? users)
+    public async Task<Result> Sync(List<UsersDTOParam> users)
     {
-      UsersRequest usersRequest = new UsersRequest();
+      UsersRequest usersRequest = new();
       usersRequest.AddUserRequests(users);
 
-      //return await _usersService.SyncUser(usersRequest);
-      throw new NotImplementedException();
+      return await _usersService.SyncProcess(usersRequest);
+      //throw new NotImplementedException();
     }
   }
 }

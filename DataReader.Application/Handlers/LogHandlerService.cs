@@ -2,7 +2,8 @@
 
 using DataReader.Core.Abstractions.Services;
 using DataReader.Core.Abstractions.Services.Handlers;
-using DataReader.Core.Models;
+using DataReader.Core.Commands.Logs;
+using DataReader.Core.Queries.Logs;
 
 
 namespace DataReader.Application.Handlers
@@ -16,14 +17,14 @@ namespace DataReader.Application.Handlers
       _logsService = logsService;
     }
 
-    //public async Task<Result> Get()
-    //{
-    //  return await _logsService.GetLog();
-    //}
+    public async Task<Result> Get(GetLastSuccessfulLogQuery query)
+    {
+      return await _logsService.GetLastSuccessfulLog(query);
+    }
 
-    //public async Task<Result> Create(Log log)
-    //{
-    //  return await _logsService.CreateLog(log);
-    //}
+    public async Task<Result> Create(CreateLogCommand command)
+    {
+      return await _logsService.CreateLog(command);
+    }
   }
 }

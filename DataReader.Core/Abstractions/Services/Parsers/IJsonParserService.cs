@@ -1,12 +1,10 @@
 ﻿using CSharpFunctionalExtensions;
-
 using DataReader.Core.Contracts.Params;
-
 
 namespace DataReader.Core.Abstractions.Services.Parsers
 {
-  public interface IProjectsJsonParserService
+  public interface IJsonParserService<TResult>
   {
-    Result<List<ProjectsDTOParam>?> ParseProject(string json);
+    TResult Parse(string json);
   }
 }

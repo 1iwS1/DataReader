@@ -10,11 +10,11 @@ using DataReader.Core.ValueObjects.User;
 
 namespace DataReader.Application.ParseProcess
 {
-  public class UsersJsonParserService : IUsersJsonParserService
+  public class UsersJsonParserService : IJsonParserService<Result<List<UsersDTOParam>?>>
   {
     public UsersJsonParserService() { }
 
-    public Result<List<UsersDTOParam>?> ParseUser(string json)
+    public Result<List<UsersDTOParam>?> Parse(string json)
     {
       try
       {
@@ -22,11 +22,11 @@ namespace DataReader.Application.ParseProcess
         List<UserParam>? userParam = new();
 
         JObject obj = JObject.Parse(json);
-        JArray array = (JArray)obj["value"];
+        JArray? array = (JArray?)obj["value"];
 
-        if (array.Count != 0)
+        if (array?.Count != 0)
         {
-          userParam = FillUserParamList(array);
+          userParam = FillParamList(array!);
           result = FillResultList(userParam);
         }
 
@@ -39,7 +39,7 @@ namespace DataReader.Application.ParseProcess
       }
     }
 
-    private List<UserParam> FillUserParamList(JArray array)
+    private List<UserParam> FillParamList(JArray array)
     {
       List<UserParam>? temp = new();
 

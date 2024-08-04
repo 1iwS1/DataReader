@@ -31,6 +31,8 @@ namespace DataReader.Core.ValueObjects
         }
       }
 
+      //DateTimeOffset dateTime = DateTimeOffset.Parse(newStr);
+
       return new AnalyticsUpdatedDate(newStr);
     }
 
