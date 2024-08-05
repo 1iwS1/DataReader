@@ -22,3 +22,5 @@ var builder = Host.CreateDefaultBuilder()
     services.AddServices();
 
   }).Build();
+
+await builder.RunAsync();
