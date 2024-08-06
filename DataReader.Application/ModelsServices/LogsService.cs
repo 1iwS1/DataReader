@@ -1,7 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
 
 using DataReader.Core.Abstractions.DALHandlers;
-using DataReader.Core.Abstractions.Repositories;
 using DataReader.Core.Abstractions.Services;
 using DataReader.Core.Commands.Logs;
 using DataReader.Core.Models;
@@ -12,18 +11,14 @@ namespace DataReader.Application.Services
 {
   public class LogsService : ILogsService
   {
-    private readonly ILogsRepository _logsRepository;
-
     private readonly IQueryHandler<Task<Result<Log>>, GetLastSuccessfulLogQuery> _getLastQueryHandler;
     private readonly ICommandHandler<Task<Result>, CreateLogCommand> _createCommandHandler;
 
     public LogsService(
-      ILogsRepository logsRepository,
       IQueryHandler<Task<Result<Log>>, GetLastSuccessfulLogQuery> getLastQueryHandler,
       ICommandHandler<Task<Result>, CreateLogCommand> createCommandHandler
       )
     {
-      _logsRepository = logsRepository;
       _getLastQueryHandler = getLastQueryHandler;
       _createCommandHandler = createCommandHandler;
     }
