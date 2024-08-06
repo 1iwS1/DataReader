@@ -9,9 +9,9 @@ namespace DataReader.DataAccess.Handlers.Projects
 {
   public class GetByIdProjectQueryHandler : IQueryHandler<Task<Result<bool>>, GetByIdProjectQuery>
   {
-    private readonly DataDbContext _dbContext;
+    private readonly DataAzureContext _dbContext;
 
-    public GetByIdProjectQueryHandler(DataDbContext dbContext)
+    public GetByIdProjectQueryHandler(DataAzureContext dbContext)
     {
       _dbContext = dbContext;
     }
@@ -20,7 +20,7 @@ namespace DataReader.DataAccess.Handlers.Projects
     {
       var projectBase = await _dbContext.Projects
         .AsNoTracking()
-        .FirstOrDefaultAsync(p => p.ProjectID == query.id);
+        .FirstOrDefaultAsync(p => p.ProjectId == query.id.CustomGuid);
 
       if (projectBase == null)
       {

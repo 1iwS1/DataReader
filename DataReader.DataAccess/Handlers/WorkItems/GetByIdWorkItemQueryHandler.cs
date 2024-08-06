@@ -9,9 +9,9 @@ namespace DataReader.DataAccess.Handlers.WorkItems
 {
     public class GetByIdWorkItemQueryHandler : IQueryHandler<Task<Result<bool>>, GetByIdWorkItemQuery>
   {
-    private readonly DataDbContext _dbContext;
+    private readonly DataAzureContext _dbContext;
 
-    public GetByIdWorkItemQueryHandler(DataDbContext dbContext)
+    public GetByIdWorkItemQueryHandler(DataAzureContext dbContext)
     {
       _dbContext = dbContext;
     }

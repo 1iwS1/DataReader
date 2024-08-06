@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace DataReader.DataAccess.Models
+﻿namespace DataReader.DataAccess.Models
 {
   public partial class User
   {

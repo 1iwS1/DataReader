@@ -11,7 +11,7 @@ using DataReader.ExternalAPI.Scheduler;
 var builder = Host.CreateDefaultBuilder()
   .ConfigureServices((context, services) =>
   {
-    services.AddDbContext<DataDbContext>(options =>
+    services.AddDbContext<DataAzureContext>(options =>
       options.UseSqlServer("Server=DESKTOP-UCP7EO7;Database=DataAzure;Trusted_Connection=True;TrustServerCertificate=true;"));
 
     services.AddQuartz();

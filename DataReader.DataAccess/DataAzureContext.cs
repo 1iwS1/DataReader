@@ -1,5 +1,6 @@
-﻿using DataReader.DataAccess.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+
+using DataReader.DataAccess.Models;
 
 
 namespace DataReader.DataAccess

@@ -9,9 +9,9 @@ namespace DataReader.DataAccess.Handlers.Projects
 {
   public class UpdateProjectCommandHandler : ICommandHandler<Task<Result<bool>>, UpdateProjectCommand>
   {
-    private readonly DataDbContext _dbContext;
+    private readonly DataAzureContext _dbContext;
 
-    public UpdateProjectCommandHandler(DataDbContext dbContext)
+    public UpdateProjectCommandHandler(DataAzureContext dbContext)
     {
       _dbContext = dbContext;
     }
@@ -19,10 +19,10 @@ namespace DataReader.DataAccess.Handlers.Projects
     public async Task<Result<bool>> Handle(UpdateProjectCommand command)
     {
       await _dbContext.Projects
-       .Where(p => p.ProjectID == command.targetId)
+       .Where(p => p.ProjectId == command.targetId.CustomGuid)
        .ExecuteUpdateAsync(u => u
-         .SetProperty(x => x.ProjectName, x => command.project.ProjectName)
-         .SetProperty(x => x.AnalyticsUpdatedDate, x => command.project.AnalyticsUpdatedDate)
+         .SetProperty(x => x.ProjectName, x => command.project.ProjectName.Name)
+         .SetProperty(x => x.AnalyticsUpdatedDate, x => command.project.AnalyticsUpdatedDate.Date)
          .SetProperty(x => x.ProjectVisibility, x => command.project.ProjectVisibility));
 
       return true;
