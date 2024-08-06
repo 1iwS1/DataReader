@@ -24,6 +24,7 @@ using DataReader.DataAccess.Handlers.Logs;
 using DataReader.DataAccess.Handlers.Projects;
 using DataReader.DataAccess.Handlers.Users;
 using DataReader.DataAccess.Handlers.WorkItems;
+using DataReader.ExternalAPI.Controllers;
 
 
 namespace DataReader.ExternalAPI.DependencyInjection
@@ -60,6 +61,8 @@ namespace DataReader.ExternalAPI.DependencyInjection
       services.AddScoped<ICommandHandler<Task<Result<bool>>, UpdateWorkItemCommand>, UpdateWorkItemCommandHandler>();
       services.AddScoped<IQueryHandler<Task<Result<bool>>, GetByIdWorkItemQuery>, GetByIdWorkItemQueryHandler>();
       services.AddScoped<ICommandHandler<Task<Result<bool>>, CreateWorkItemCommand>, CreateWorkItemCommandHandler>();
+
+      services.AddTransient<MainControllerJob>();
 
       //services.AddScoped<ILogsRepository, LogRepository>();
       //services.AddScoped<IProjectsRepository, ProjectsRepository>();

@@ -25,9 +25,10 @@ namespace DataReader.ExternalAPI.Scheduler
     {
       return TriggerBuilder.Create()
         .WithIdentity("DailyTrigger", "Group1")
-        .WithSimpleSchedule(x => x
-          .WithIntervalInSeconds(15)
-          .RepeatForever())
+        //.WithSimpleSchedule(x => x
+        //  .WithIntervalInSeconds(15)
+        //  .RepeatForever())
+        .StartAt(DateBuilder.FutureDate(5, IntervalUnit.Second))
         .Build();
     }
   }
