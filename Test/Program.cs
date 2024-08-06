@@ -9,7 +9,7 @@ using DataReader.Core.Abstractions.Services.Handlers;
 using DataReader.Core.Abstractions.Services.Parsers;
 using DataReader.Core.Contracts.Requests;
 using DataReader.DataAccess;
-using DataReader.DataAccess.Repositories;
+//using DataReader.DataAccess.Repositories;
 
 
 public class Program

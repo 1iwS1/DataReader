@@ -43,7 +43,7 @@ namespace DataReader.DataAccess.Handlers.WorkItems
                 .SetProperty(x => x.ClosedDate, x => command.workItem.ClosedDate.Date)
                 .SetProperty(x => x.Priority, x => command.workItem.Priority)
                 .SetProperty(x => x.ResolvedDate, x => command.workItem.ResolvedDate.Date)
-                .SetProperty(x => x.CompletedWork, x => command.workItem.CompletedWork)
+                .SetProperty(x => x.CompletedWork, x => (decimal?)command.workItem.CompletedWork)
                 .SetProperty(x => x.Effort, x => command.workItem.Effort)
                 .SetProperty(x => x.FinishDate, x => command.workItem.FinishDate.Date)
                 .SetProperty(x => x.OriginalEstimate, x => command.workItem.OriginalEstimate)

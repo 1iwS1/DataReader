@@ -43,7 +43,7 @@ namespace DataReader.DataAccess.Handlers.WorkItems
                 ClosedDate = command.workItem.ClosedDate.Date,
                 Priority = command.workItem.Priority,
                 ResolvedDate = command.workItem.ResolvedDate.Date,
-                CompletedWork = command.workItem.CompletedWork,
+                CompletedWork = (decimal?)command.workItem.CompletedWork,
                 Effort = command.workItem.Effort,
                 FinishDate = command.workItem.FinishDate.Date,
                 OriginalEstimate = command.workItem.OriginalEstimate,
