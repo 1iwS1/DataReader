@@ -74,22 +74,27 @@ namespace DataReader.DataAccess.BaseModels
 
     [Column("AssignedToUserSK")]
     public DataReaderGuid? AssignedToUserSK { get; set; } // foreign key Users
+    public UserBase? AssignedToUser { get; set; }
 
     [Column("ChangedByUserSK")]
     public DataReaderGuid? ChangedByUserSK { get; set; } // foreign key Users
+    public UserBase? ChangedByUser { get; set; }
 
     [Column("CreatedByUserSK")]
     public DataReaderGuid? CreatedByUserSK { get; set; } // foreign key Users
+    public UserBase? CreatedByUser { get; set; }
 
     [Column("ActivatedByUserSK")]
     public DataReaderGuid? ActivatedByUserSK { get; set; } // foreign key Users
+    public UserBase? ActivatedByUser { get; set; }
 
     [Column("ClosedByUserSK")]
     public DataReaderGuid? ClosedByUserSK { get; set; } // foreign key Users
+    public UserBase? ClosedByUser { get; set; }
 
     [Column("ResolvedByUserSK")]
     public DataReaderGuid? ResolvedByUserSK { get; set; } // foreign key Users
-    public UserBase? User { get; set; }
+    public UserBase? ResolvedByUser { get; set; }
 
     [Column("ProjectSK")]
     public DataReaderGuid? ProjectSK { get; set; } // foreign key to Project (1:1)

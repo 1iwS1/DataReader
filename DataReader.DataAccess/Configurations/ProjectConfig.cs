@@ -10,8 +10,8 @@ namespace DataReader.DataAccess.Configurations
   {
     public void Configure(EntityTypeBuilder<ProjectBase> builder)
     {
-      BuildRealtions(builder);
       BuildPropeties(builder);
+      BuildRealtions(builder);
     }
 
     private void BuildPropeties(EntityTypeBuilder<ProjectBase> builder)

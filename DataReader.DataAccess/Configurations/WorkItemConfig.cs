@@ -10,8 +10,8 @@ namespace DataReader.DataAccess.Configurations
   {
     public void Configure(EntityTypeBuilder<WorkItemBase> builder)
     {
-      BuildRealtions(builder);
       BuildProperties(builder);
+      BuildRealtions(builder);
     }
 
     private void BuildProperties(EntityTypeBuilder<WorkItemBase> builder)
@@ -198,45 +198,39 @@ namespace DataReader.DataAccess.Configurations
         .IsRequired(false);
 
       builder
-        .HasOne(w => w.User)
-        .WithMany(u => u.WorkItems)
+        .HasOne(w => w.AssignedToUser)
+        .WithMany(u => u.AssignedWorkItems)
         .HasForeignKey(f => f.AssignedToUserSK)
-        .HasPrincipalKey(p => p.UserSK)
         .IsRequired(false);
 
       builder
-        .HasOne(w => w.User)
-        .WithMany(u => u.WorkItems)
+        .HasOne(w => w.ChangedByUser)
+        .WithMany(u => u.ChangedWorkItems)
         .HasForeignKey(f => f.ChangedByUserSK)
-        .HasPrincipalKey(p => p.UserSK)
         .IsRequired(false);
 
       builder
-        .HasOne(w => w.User)
-        .WithMany(u => u.WorkItems)
+        .HasOne(w => w.CreatedByUser)
+        .WithMany(u => u.CreatedWorkItems)
         .HasForeignKey(f => f.CreatedByUserSK)
-        .HasPrincipalKey(p => p.UserSK)
         .IsRequired(false);
 
       builder
-        .HasOne(w => w.User)
-        .WithMany(u => u.WorkItems)
+        .HasOne(w => w.ActivatedByUser)
+        .WithMany(u => u.ActivatedWorkItems)
         .HasForeignKey(f => f.ActivatedByUserSK)
-        .HasPrincipalKey(p => p.UserSK)
         .IsRequired(false);
 
       builder
-        .HasOne(w => w.User)
-        .WithMany(u => u.WorkItems)
+        .HasOne(w => w.ClosedByUser)
+        .WithMany(u => u.ClosedWorkItems)
         .HasForeignKey(f => f.ClosedByUserSK)
-        .HasPrincipalKey(p => p.UserSK)
         .IsRequired(false);
 
       builder
-        .HasOne(w => w.User)
-        .WithMany(u => u.WorkItems)
+        .HasOne(w => w.ResolvedByUser)
+        .WithMany(u => u.ResolvedWorkItems)
         .HasForeignKey(f => f.ResolvedByUserSK)
-        .HasPrincipalKey(p => p.UserSK)
         .IsRequired(false);
     }
   }
