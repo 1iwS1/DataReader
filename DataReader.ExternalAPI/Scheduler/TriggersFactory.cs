@@ -28,7 +28,7 @@ namespace DataReader.ExternalAPI.Scheduler
         //.WithSimpleSchedule(x => x
         //  .WithIntervalInSeconds(15)
         //  .RepeatForever())
-        .StartAt(DateBuilder.FutureDate(5, IntervalUnit.Second))
+        .StartAt(DateBuilder.FutureDate(1, IntervalUnit.Second))
         .Build();
     }
   }

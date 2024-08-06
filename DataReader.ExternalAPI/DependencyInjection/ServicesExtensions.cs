@@ -62,8 +62,6 @@ namespace DataReader.ExternalAPI.DependencyInjection
       services.AddScoped<IQueryHandler<Task<Result<bool>>, GetByIdWorkItemQuery>, GetByIdWorkItemQueryHandler>();
       services.AddScoped<ICommandHandler<Task<Result<bool>>, CreateWorkItemCommand>, CreateWorkItemCommandHandler>();
 
-      services.AddTransient<MainControllerJob>();
-
       //services.AddScoped<ILogsRepository, LogRepository>();
       //services.AddScoped<IProjectsRepository, ProjectsRepository>();
       //services.AddScoped<IUsersRepository, UsersRepository>();

@@ -21,6 +21,7 @@ var builder = Host.CreateDefaultBuilder()
     });
 
     services.AddServices();
+    services.AddControllers();
 
   }).Build();
 
