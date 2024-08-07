@@ -12,7 +12,7 @@ var builder = Host.CreateDefaultBuilder()
   .ConfigureServices((context, services) =>
   {
     services.AddDbContext<DataAzureContext>(options =>
-      options.UseSqlServer("Server=DESKTOP-UCP7EO7;Database=DataAzure;Trusted_Connection=True;TrustServerCertificate=true;"));
+      options.UseSqlServer(""));
 
     services.AddQuartz();
     services.AddQuartzHostedService(q =>
