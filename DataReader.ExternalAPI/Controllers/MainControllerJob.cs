@@ -51,9 +51,9 @@ namespace DataReader.ExternalAPI.Controllers
 
     private async Task<bool> ReadAllData(string? dateToCompareWith, Result projectResult, Result userResult, Result workItemResult)
     {
-      projectResult = await _projectController.GetDataByODataProtocol(PAT);
-      userResult = await _userController.GetDataByODataProtocol(PAT);
-      workItemResult = await _workItemController.GetDataByODataProtocol(PAT, dateToCompareWith);
+      projectResult = await _projectController.GetDataByODataProtocol("");
+      userResult = await _userController.GetDataByODataProtocol("");
+      workItemResult = await _workItemController.GetDataByODataProtocol("", dateToCompareWith);
 
       if (projectResult.IsSuccess && userResult.IsSuccess && workItemResult.IsSuccess)
       {
