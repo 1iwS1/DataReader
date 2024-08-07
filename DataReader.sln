@@ -7,11 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataReader.Core", "DataRead
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataReader.Application", "DataReader.Application\DataReader.Application.csproj", "{66644B6A-96BA-4A98-8F94-9DA7D4B9FF1A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{A3BE4423-50FE-45A8-85B4-77D5D8D94869}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataReader.DataAccess", "DataReader.DataAccess\DataReader.DataAccess.csproj", "{3B32495A-15E9-4CC4-BF64-BDBB8E74D0E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataReader.ExternalAPI", "DataReader.ExternalAPI\DataReader.ExternalAPI.csproj", "{CCA3909E-E9AF-4F89-B39A-07A3AD76BA81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataReader.ExternalAPI", "DataReader.ExternalAPI\DataReader.ExternalAPI.csproj", "{CCA3909E-E9AF-4F89-B39A-07A3AD76BA81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,10 +25,6 @@ Global
 		{66644B6A-96BA-4A98-8F94-9DA7D4B9FF1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66644B6A-96BA-4A98-8F94-9DA7D4B9FF1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66644B6A-96BA-4A98-8F94-9DA7D4B9FF1A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A3BE4423-50FE-45A8-85B4-77D5D8D94869}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A3BE4423-50FE-45A8-85B4-77D5D8D94869}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A3BE4423-50FE-45A8-85B4-77D5D8D94869}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A3BE4423-50FE-45A8-85B4-77D5D8D94869}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3B32495A-15E9-4CC4-BF64-BDBB8E74D0E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3B32495A-15E9-4CC4-BF64-BDBB8E74D0E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B32495A-15E9-4CC4-BF64-BDBB8E74D0E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
