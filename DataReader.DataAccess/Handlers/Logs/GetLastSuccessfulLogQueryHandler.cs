@@ -39,7 +39,7 @@ namespace DataReader.DataAccess.Handlers.Logs
         (Results)Enum.Parse(typeof(Results), logBase.SyncResult!)
       ));
 
-      return log;
+      return Result.Success(log.Value);
     }
   }
 }

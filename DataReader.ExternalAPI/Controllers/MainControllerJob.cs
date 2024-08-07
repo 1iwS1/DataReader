@@ -2,35 +2,65 @@
 using Quartz;
 
 using DataReader.Core.Models;
+using DataReader.Core.Shells;
+using DataReader.Core.ValueObjects;
+using DataReader.Core.Enums;
 
 
 namespace DataReader.ExternalAPI.Controllers
 {
-  public class MainControllerJob : IJob
-  {
-    private readonly LogController _logController;
-    private readonly UserController _userController;
-    private readonly ProjectController _projectController;
-    private readonly WorkItemController _workItemController;
-
-    public MainControllerJob(
+  public class MainControllerJob(
       LogController logController,
       UserController userController,
       ProjectController projectController,
       WorkItemController workItemController
-      )
-    {
-      _logController = logController;
-      _userController = userController;
-      _projectController = projectController;
-      _workItemController = workItemController;
-    }
+      ) : IJob
+  {
+    private readonly LogController _logController = logController;
+    private readonly UserController _userController = userController;
+    private readonly ProjectController _projectController = projectController;
+    private readonly WorkItemController _workItemController = workItemController;
+
+    private const string PAT = ""; // !!!!!!!!!!!!!!!!
 
     public async Task Execute(IJobExecutionContext context)
     {
       Result<Log> logResult = await _logController.GetLog();
 
+      Result projectResult = new();
+      Result userResult = new();
+      Result workItemResult = new();
+
+      bool resultOfGettingData = await ReadAllData(
+        logResult.IsFailure ? "" : logResult.Value.LastSyncTime.Date,
+        projectResult,
+        userResult,
+        workItemResult
+      );
+
+      Result<Log> log = Log.Create(new LogParam(
+        DataReaderGuid.Create(Guid.NewGuid().ToString()).Value,
+        AnalyticsUpdatedDate.Create(DateTime.Now.ToString("s") + "Z").Value,
+        resultOfGettingData ? Results.Succeed : Results.Failed
+      ));
+
+      await _logController.CreateLog(log.Value);
+
       await Task.CompletedTask;
+    }
+
+    private async Task<bool> ReadAllData(string? dateToCompareWith, Result projectResult, Result userResult, Result workItemResult)
+    {
+      projectResult = await _projectController.GetDataByODataProtocol(PAT);
+      userResult = await _userController.GetDataByODataProtocol(PAT);
+      workItemResult = await _workItemController.GetDataByODataProtocol(PAT, dateToCompareWith);
+
+      if (projectResult.IsSuccess && userResult.IsSuccess && workItemResult.IsSuccess)
+      {
+        return true;
+      }
+
+      return false;
     }
   }
 }

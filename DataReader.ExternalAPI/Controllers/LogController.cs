@@ -1,7 +1,9 @@
 ﻿using CSharpFunctionalExtensions;
 
 using DataReader.Core.Abstractions.Services.Handlers;
+using DataReader.Core.Commands.Logs;
 using DataReader.Core.Models;
+using DataReader.Core.Queries.Logs;
 
 
 namespace DataReader.ExternalAPI.Controllers
@@ -17,12 +19,16 @@ namespace DataReader.ExternalAPI.Controllers
 
     public async Task<Result<Log>> GetLog()
     {
-      return new Result<Log>();
+      GetLastSuccessfulLogQuery query = new();
+
+      return await _logHandler.Get(query);
     }
 
-    public async Task<Result> CreateLog()
+    public async Task<Result> CreateLog(Log log)
     {
-      return new Result<Log>();
+      CreateLogCommand command = new() { log = log };
+
+      return await _logHandler.Create(command);
     }
   }
 }

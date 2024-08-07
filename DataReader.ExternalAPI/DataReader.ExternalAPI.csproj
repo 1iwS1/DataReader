@@ -30,8 +30,4 @@
     <ProjectReference Include="..\DataReader.DataAccess\DataReader.DataAccess.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Config\" />
-  </ItemGroup>
-
 </Project>
