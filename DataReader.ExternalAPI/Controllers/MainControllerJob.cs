@@ -1,10 +1,12 @@
-﻿using CSharpFunctionalExtensions;
+﻿using Microsoft.Extensions.Options;
+using CSharpFunctionalExtensions;
 using Quartz;
 
 using DataReader.Core.Models;
 using DataReader.Core.Shells;
 using DataReader.Core.ValueObjects;
 using DataReader.Core.Enums;
+using DataReader.ExternalAPI.Properties.Configs.ClassConfigs;
 
 
 namespace DataReader.ExternalAPI.Controllers
@@ -13,7 +15,8 @@ namespace DataReader.ExternalAPI.Controllers
       LogController logController,
       UserController userController,
       ProjectController projectController,
-      WorkItemController workItemController
+      WorkItemController workItemController,
+      IOptions<Secrets> options
       ) : IJob
   {
     private readonly LogController _logController = logController;
@@ -21,7 +24,7 @@ namespace DataReader.ExternalAPI.Controllers
     private readonly ProjectController _projectController = projectController;
     private readonly WorkItemController _workItemController = workItemController;
 
-    private const string PAT = ""; // !!!!!!!!!!!!!!!!
+    private readonly Secrets secrets = options.Value;
 
     public async Task Execute(IJobExecutionContext context)
     {
@@ -51,9 +54,9 @@ namespace DataReader.ExternalAPI.Controllers
 
     private async Task<bool> ReadAllData(string? dateToCompareWith, Result projectResult, Result userResult, Result workItemResult)
     {
-      projectResult = await _projectController.GetDataByODataProtocol("");
-      userResult = await _userController.GetDataByODataProtocol("");
-      workItemResult = await _workItemController.GetDataByODataProtocol("", dateToCompareWith);
+      projectResult = await _projectController.GetDataByODataProtocol(secrets.PAT);
+      userResult = await _userController.GetDataByODataProtocol(secrets.PAT);
+      workItemResult = await _workItemController.GetDataByODataProtocol(secrets.PAT, dateToCompareWith);
 
       if (projectResult.IsSuccess && userResult.IsSuccess && workItemResult.IsSuccess)
       {

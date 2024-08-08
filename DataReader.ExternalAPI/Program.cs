@@ -1,34 +1,52 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Quartz;
 
 using DataReader.DataAccess;
 using DataReader.ExternalAPI.DependencyInjection;
 using DataReader.ExternalAPI.Scheduler;
+using DataReader.ExternalAPI.Properties.Configs.ClassConfigs;
 
 
-var builder = Host.CreateDefaultBuilder()
-  .ConfigureServices((context, services) =>
+HostApplicationBuilder builder = Host.CreateApplicationBuilder();
+
+builder.Configuration
+  .AddJsonFile("C:\\Users\\Максим\\OneDrive\\Рабочий стол\\Работа\\Project\\" +
+    "DataReader\\DataReader.ExternalAPI\\Properties\\Configs\\appsettings.json", true, true)
+  .AddJsonFile("C:\\Users\\Максим\\OneDrive\\Рабочий стол\\Работа\\Project\\" +
+    "DataReader\\DataReader.ExternalAPI\\Properties\\Configs\\secrets.json", true, true)
+  .AddJsonFile("C:\\Users\\Максим\\OneDrive\\Рабочий стол\\Работа\\Project\\" +
+    "DataReader\\DataReader.ExternalAPI\\Properties\\Configs\\connect.json", true, true);
+
+builder.Services.Configure<Secrets>(
+  builder.Configuration.GetSection(
+    key: nameof(Secrets)));
+
+var connectionOptions = builder.Configuration.GetSection("GetConnectionString")
+  .Get<ConnectionString>();
+
+var intervalOptions = builder.Configuration.GetSection(nameof(IntervalForSynchronisation))
+  .Get<IntervalForSynchronisation>();
+
+builder.Services
+  .AddDbContext<DataAzureContext>(options => options.UseSqlServer(connectionOptions!.SqlServerConnection))
+  .AddQuartz()
+  .AddQuartzHostedService(q =>
   {
-    services.AddDbContext<DataAzureContext>(options =>
-      options.UseSqlServer(""));
+    q.WaitForJobsToComplete = true;
+  })
+  .AddServices()
+  .AddControllers();
 
-    services.AddQuartz();
-    services.AddQuartzHostedService(q =>
-    {
-      q.WaitForJobsToComplete = true;
-    });
 
-    services.AddServices();
-    services.AddControllers();
+using IHost host = builder.Build();
 
-  }).Build();
-
-QuartzScheduler quartzScheduler = new(builder);
+QuartzScheduler quartzScheduler = new(host);
 IScheduler scheduler = await quartzScheduler.GetSchedulerAndJob();
-ITrigger trigger = (ITrigger)quartzScheduler.triggers["secondly"]!;
+ITrigger trigger = (ITrigger)quartzScheduler.triggers[intervalOptions!.Interval]!;
 
 await scheduler.ScheduleJob(quartzScheduler.Job!, trigger);
 
-await builder.RunAsync();
+await host.RunAsync();
