@@ -12,13 +12,13 @@ using DataReader.ExternalAPI.Properties.Configs.ClassConfigs;
 
 HostApplicationBuilder builder = Host.CreateApplicationBuilder();
 
+string absolutePath = "C:\\Users\\Максим\\OneDrive\\Рабочий стол\\Работа\\Project\\" +
+    "DataReader\\DataReader.ExternalAPI\\Properties\\Configs\\";
+
 builder.Configuration
-  .AddJsonFile("C:\\Users\\Максим\\OneDrive\\Рабочий стол\\Работа\\Project\\" +
-    "DataReader\\DataReader.ExternalAPI\\Properties\\Configs\\appsettings.json", true, true)
-  .AddJsonFile("C:\\Users\\Максим\\OneDrive\\Рабочий стол\\Работа\\Project\\" +
-    "DataReader\\DataReader.ExternalAPI\\Properties\\Configs\\secrets.json", true, true)
-  .AddJsonFile("C:\\Users\\Максим\\OneDrive\\Рабочий стол\\Работа\\Project\\" +
-    "DataReader\\DataReader.ExternalAPI\\Properties\\Configs\\connect.json", true, true);
+  .AddJsonFile($"{absolutePath}appsettings.json", true, true)
+  .AddJsonFile($"{absolutePath}secrets.json", true, true)
+  .AddJsonFile($"{absolutePath}connect.json", true, true);
 
 builder.Services.Configure<Secrets>(
   builder.Configuration.GetSection(
