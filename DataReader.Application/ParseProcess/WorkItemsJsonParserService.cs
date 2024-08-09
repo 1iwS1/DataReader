@@ -5,6 +5,7 @@ using DataReader.Core.Contracts.Params;
 using DataReader.Core.Shells;
 using DataReader.Core.ValueObjects;
 using DataReader.Core.Abstractions.Services.Parsers;
+using DataReader.Core.ValueObjects.Extensions;
 
 
 namespace DataReader.Application.ParseProcess
@@ -46,35 +47,32 @@ namespace DataReader.Application.ParseProcess
       {
         int workItemId = item["WorkItemId"].Type != JTokenType.Null ? (int)item["WorkItemId"] : 0;
 
-        AnalyticsUpdatedDate inProgressDate =
-          AnalyticsUpdatedDate.
-          Create(item["InProgressDate"]).
-          Value;
+        Result<AnalyticsUpdatedDate> inProgressDate = AnalyticsUpdatedDate
+          .Create(item["InProgressDate"])
+          .Validate();
 
-        AnalyticsUpdatedDate completedDate =
-          AnalyticsUpdatedDate.
-          Create(item["CompletedDate"]).
-          Value;
+        Result<AnalyticsUpdatedDate> completedDate = AnalyticsUpdatedDate
+          .Create(item["CompletedDate"])
+          .Validate();
 
         string? inProgressDateSK = item["InProgressDateSK"]?.ToString();
         string? completedDateSK = item["CompletedDateSK"]?.ToString();
 
-        AnalyticsUpdatedDate analyticsUpdatedDate =
-          AnalyticsUpdatedDate.
-          Create(item["AnalyticsUpdatedDate"]).
-          Value;
+        Result<AnalyticsUpdatedDate> analyticsUpdatedDate = AnalyticsUpdatedDate
+          .Create(item["AnalyticsUpdatedDate"])
+          .Validate();
 
-        DataReaderGuid projectSK = DataReaderGuid.Create(item["ProjectSK"].ToString()).Value;
+        Result<DataReaderGuid> projectSK = DataReaderGuid.Create(item["ProjectSK"].ToString()).Validate();
         int workItemRevisionSK = item["WorkItemRevisionSK"].Type != JTokenType.Null ? (int)item["WorkItemRevisionSK"] : 0;
 
-        DataReaderGuid areaSK = DataReaderGuid.Create(item["AreaSK"].ToString()).Value;
-        DataReaderGuid iterationSK = DataReaderGuid.Create(item["IterationSK"].ToString()).Value;
-        DataReaderGuid assignedToUserSK = DataReaderGuid.Create(item["AssignedToUserSK"].ToString()).Value;
-        DataReaderGuid changedByUserSK = DataReaderGuid.Create(item["ChangedByUserSK"].ToString()).Value;
-        DataReaderGuid createdByUserSK = DataReaderGuid.Create(item["CreatedByUserSK"].ToString()).Value;
-        DataReaderGuid activatedByUserSK = DataReaderGuid.Create(item["ActivatedByUserSK"].ToString()).Value;
-        DataReaderGuid closedByUserSK = DataReaderGuid.Create(item["ClosedByUserSK"].ToString()).Value;
-        DataReaderGuid resolvedByUserSK = DataReaderGuid.Create(item["ResolvedByUserSK"].ToString()).Value;
+        Result<DataReaderGuid> areaSK = DataReaderGuid.Create(item["AreaSK"].ToString()).Validate();
+        Result<DataReaderGuid> iterationSK = DataReaderGuid.Create(item["IterationSK"].ToString()).Validate();
+        Result<DataReaderGuid> assignedToUserSK = DataReaderGuid.Create(item["AssignedToUserSK"].ToString()).Validate();
+        Result<DataReaderGuid> changedByUserSK = DataReaderGuid.Create(item["ChangedByUserSK"].ToString()).Validate();
+        Result<DataReaderGuid> createdByUserSK = DataReaderGuid.Create(item["CreatedByUserSK"].ToString()).Validate();
+        Result<DataReaderGuid> activatedByUserSK = DataReaderGuid.Create(item["ActivatedByUserSK"].ToString()).Validate();
+        Result<DataReaderGuid> closedByUserSK = DataReaderGuid.Create(item["ClosedByUserSK"].ToString()).Validate();
+        Result<DataReaderGuid> resolvedByUserSK = DataReaderGuid.Create(item["ResolvedByUserSK"].ToString()).Validate();
 
         string? activatedDateSK = item["ActivatedDateSK"]?.ToString();
         string? changedDateSK = item["ChangedDateSK"]?.ToString();
@@ -84,42 +82,36 @@ namespace DataReader.Application.ParseProcess
         string? stateChangeDateSK = item["StateChangeDateSK"]?.ToString();
         string? workItemType = item["WorkItemType"]?.ToString();
 
-        AnalyticsUpdatedDate changedDate =
-          AnalyticsUpdatedDate.
-          Create(item["ChangedDate"]).
-          Value;
+        Result<AnalyticsUpdatedDate> changedDate = AnalyticsUpdatedDate
+          .Create(item["ChangedDate"])
+          .Validate();
 
-        AnalyticsUpdatedDate createdDate =
-          AnalyticsUpdatedDate.
-          Create(item["CreatedDate"]).
-          Value;
+        Result<AnalyticsUpdatedDate> createdDate = AnalyticsUpdatedDate
+          .Create(item["CreatedDate"])
+          .Validate();
 
         string? state = item["State"]?.ToString();
 
-        AnalyticsUpdatedDate activatedDate =
-          AnalyticsUpdatedDate.
-          Create(item["ActivatedDate"]).
-          Value;
+        Result<AnalyticsUpdatedDate> activatedDate = AnalyticsUpdatedDate
+          .Create(item["ActivatedDate"])
+          .Validate();
 
-        AnalyticsUpdatedDate closedDate =
-          AnalyticsUpdatedDate.
-          Create(item["ClosedDate"]).
-          Value;
+        Result<AnalyticsUpdatedDate> closedDate = AnalyticsUpdatedDate
+          .Create(item["ClosedDate"])
+          .Validate();
 
         int priority = item["Priority"].Type != JTokenType.Null ? (int)item["Priority"] : 0;
 
-        AnalyticsUpdatedDate resolvedDate =
-          AnalyticsUpdatedDate.
-          Create(item["ResolvedDate"]).
-          Value;
+        Result<AnalyticsUpdatedDate> resolvedDate = AnalyticsUpdatedDate
+          .Create(item["ResolvedDate"])
+          .Validate();
 
         double completedWork = item["CompletedWork"].Type != JTokenType.Null ? (double)item["CompletedWork"] : 0.0;
         string? effort = item["Effort"]?.ToString();
 
-        AnalyticsUpdatedDate finishDate =
-          AnalyticsUpdatedDate.
-          Create(item["FinishDate"] ).
-          Value;
+        Result<AnalyticsUpdatedDate> finishDate = AnalyticsUpdatedDate
+          .Create(item["FinishDate"])
+          .Validate();
 
         string? originalEstimate = item["OriginalEstimate"]?.ToString();
         string? remainingWork = item["RemainingWork"]?.ToString();
@@ -129,10 +121,9 @@ namespace DataReader.Application.ParseProcess
         int parentWorkItemId = item["ParentWorkItemId"].Type != JTokenType.Null ? (int)item["ParentWorkItemId"] : 0;
         string? tagNames = item["TagNames"]?.ToString();
 
-        AnalyticsUpdatedDate stateChangeDate =
-          AnalyticsUpdatedDate.
-          Create(item["StateChangeDate"]).
-          Value;
+        Result<AnalyticsUpdatedDate> stateChangeDate = AnalyticsUpdatedDate
+          .Create(item["StateChangeDate"])
+          .Validate();
 
         string? custom_719f69f1__002Df7d0__002D4baa__002Db6ce__002De77ad5dfcdf3 =
           item["Custom_719f69f1__002Df7d0__002D4baa__002Db6ce__002De77ad5dfcdf3"]?.ToString();
@@ -143,14 +134,16 @@ namespace DataReader.Application.ParseProcess
         string? custom_TicketNo = item["Custom_TicketNo"]?.ToString();
 
         WorkItemParam param = new(
-          workItemId, inProgressDate, completedDate, inProgressDateSK, completedDateSK, analyticsUpdatedDate,
-          projectSK, workItemRevisionSK, areaSK, iterationSK, assignedToUserSK, changedByUserSK, createdByUserSK,
-          activatedByUserSK, closedByUserSK, resolvedByUserSK, activatedDateSK, changedDateSK, closedDateSK, createdDateSK,
-          resolvedDateSK, stateChangeDateSK, workItemType, changedDate, createdDate, state, activatedDate, closedDate,
-          priority, resolvedDate, completedWork, effort, finishDate, originalEstimate, remainingWork, startDate, storyPoints,
-          targetDate, parentWorkItemId, tagNames, stateChangeDate, custom_719f69f1__002Df7d0__002D4baa__002Db6ce__002De77ad5dfcdf3,
-          custom_Company, custom_Eksternareferenca, custom_ITServiceorApplication, custom_Statusprojekta, custom_TicketNo
+          workItemId, inProgressDate.Value, completedDate.Value, inProgressDateSK, completedDateSK, analyticsUpdatedDate.Value,
+          projectSK.Value, workItemRevisionSK, areaSK.Value, iterationSK.Value, assignedToUserSK.Value, changedByUserSK.Value,
+          createdByUserSK.Value, activatedByUserSK.Value, closedByUserSK.Value, resolvedByUserSK.Value, activatedDateSK,
+          changedDateSK, closedDateSK, createdDateSK, resolvedDateSK, stateChangeDateSK, workItemType, changedDate.Value,
+          createdDate.Value, state, activatedDate.Value, closedDate.Value, priority, resolvedDate.Value, completedWork,
+          effort, finishDate.Value, originalEstimate, remainingWork, startDate, storyPoints, targetDate, parentWorkItemId,
+          tagNames, stateChangeDate.Value, custom_719f69f1__002Df7d0__002D4baa__002Db6ce__002De77ad5dfcdf3, custom_Company, 
+          custom_Eksternareferenca, custom_ITServiceorApplication, custom_Statusprojekta, custom_TicketNo
         );
+
         temp.Add(param);
       }
 

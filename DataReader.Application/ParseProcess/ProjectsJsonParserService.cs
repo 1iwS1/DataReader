@@ -6,6 +6,7 @@ using DataReader.Core.Shells;
 using DataReader.Core.ValueObjects;
 using DataReader.Core.ValueObjects.Project;
 using DataReader.Core.Abstractions.Services.Parsers;
+using DataReader.Core.ValueObjects.Extensions;
 
 
 namespace DataReader.Application.ParseProcess
@@ -45,18 +46,24 @@ namespace DataReader.Application.ParseProcess
 
       foreach (var item in array)
       {
-        DataReaderGuid projectSK = DataReaderGuid.Create(item["ProjectSK"].ToString()).Value;
-        DataReaderGuid projectID = DataReaderGuid.Create(item["ProjectId"].ToString()).Value;
-        ProjectName projectName = ProjectName.Create(item["ProjectName"].ToString()).Value;
+        Result<DataReaderGuid> projectSK = DataReaderGuid.Create(item["ProjectSK"].ToString()).Validate();
+        Result<DataReaderGuid> projectID = DataReaderGuid.Create(item["ProjectId"].ToString()).Validate();
+        Result<ProjectName> projectName = ProjectName.Create(item["ProjectName"].ToString()).Validate();
 
-        AnalyticsUpdatedDate analytics =
-          AnalyticsUpdatedDate.
-          Create(item["AnalyticsUpdatedDate"]).
-          Value;
+        Result<AnalyticsUpdatedDate> analytics = AnalyticsUpdatedDate
+          .Create(item["AnalyticsUpdatedDate"])
+          .Validate();
 
         string? projectVisibility = item["ProjectVisibility"].ToString();
 
-        ProjectParam param = new(projectSK, projectID, projectName, analytics, projectVisibility);
+        ProjectParam param = new(
+          projectSK.Value, 
+          projectID.Value, 
+          projectName.Value, 
+          analytics.Value, 
+          projectVisibility
+        );
+        
         temp.Add(param);
       }
 

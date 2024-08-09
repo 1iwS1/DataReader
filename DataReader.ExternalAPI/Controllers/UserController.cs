@@ -46,7 +46,7 @@ namespace DataReader.ExternalAPI.Controllers
             string responseBody = await response.Content.ReadAsStringAsync();
             result = JToken.Parse(responseBody).ToString(Formatting.Indented);
 
-            Console.WriteLine(result);
+            //Console.WriteLine(result);
           }
         }
 

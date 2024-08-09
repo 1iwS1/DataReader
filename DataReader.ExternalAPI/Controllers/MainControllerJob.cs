@@ -30,15 +30,8 @@ namespace DataReader.ExternalAPI.Controllers
     {
       Result<Log> logResult = await _logController.GetLog();
 
-      Result projectResult = new();
-      Result userResult = new();
-      Result workItemResult = new();
-
       bool resultOfGettingData = await ReadAllData(
-        logResult.IsFailure ? "" : logResult.Value.LastSyncTime.Date,
-        projectResult,
-        userResult,
-        workItemResult
+        logResult.IsFailure ? "" : logResult.Value.LastSyncTime.Date
       );
 
       Result<Log> log = Log.Create(new LogParam(
@@ -52,11 +45,11 @@ namespace DataReader.ExternalAPI.Controllers
       await Task.CompletedTask;
     }
 
-    private async Task<bool> ReadAllData(string? dateToCompareWith, Result projectResult, Result userResult, Result workItemResult)
+    private async Task<bool> ReadAllData(string? dateToCompareWith)
     {
-      projectResult = await _projectController.GetDataByODataProtocol(secrets.PAT);
-      userResult = await _userController.GetDataByODataProtocol(secrets.PAT);
-      workItemResult = await _workItemController.GetDataByODataProtocol(secrets.PAT, dateToCompareWith);
+      Result projectResult = await _projectController.GetDataByODataProtocol(secrets.PAT);
+      Result userResult = await _userController.GetDataByODataProtocol(secrets.PAT);
+      Result workItemResult = await _workItemController.GetDataByODataProtocol(secrets.PAT, dateToCompareWith);
 
       if (projectResult.IsSuccess && userResult.IsSuccess && workItemResult.IsSuccess)
       {
