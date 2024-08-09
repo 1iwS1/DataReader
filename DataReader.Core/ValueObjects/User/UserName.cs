@@ -7,7 +7,7 @@ namespace DataReader.Core.ValueObjects.User
   public class UserName : ValueObject
   {
     private const int MAX_USERNAME_LENGHT = 100;
-    private const string REGEX_FOR_NAME = "^[^\\d]+$";
+    //private const string REGEX_FOR_NAME = "^[^\\d]+$";
     public string? Name { get; } = string.Empty;
 
     private UserName(string name)
@@ -24,10 +24,10 @@ namespace DataReader.Core.ValueObjects.User
           return Result.Failure<UserName>($"'{nameof(name)}' can't be more than {MAX_USERNAME_LENGHT}");
         }
 
-        if (!Regex.IsMatch(name, REGEX_FOR_NAME))
+        /*if (!Regex.IsMatch(name, REGEX_FOR_NAME))
         {
           return Result.Failure<UserName>($"'{nameof(name)}' must not contain numbers");
-        }
+        }*/
       }
 
       return new UserName(name);

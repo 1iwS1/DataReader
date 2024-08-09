@@ -59,7 +59,7 @@ namespace DataReader.Core.Models
       Custom_TicketNo = shell.custom_TicketNo;
     }
 
-    public int? WorkItemId { get; }
+    public int WorkItemId { get; }
     public AnalyticsUpdatedDate InProgressDate { get; }
     public AnalyticsUpdatedDate CompletedDate { get; }
     public string? InProgressDateSK { get; }

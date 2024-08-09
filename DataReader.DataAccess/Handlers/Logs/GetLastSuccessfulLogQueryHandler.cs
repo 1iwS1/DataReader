@@ -6,15 +6,16 @@ using DataReader.Core.Enums;
 using DataReader.Core.Models;
 using DataReader.Core.Queries.Logs;
 using DataReader.Core.Shells;
+using DataReader.Core.ValueObjects;
 
 
 namespace DataReader.DataAccess.Handlers.Logs
 {
   public class GetLastSuccessfulLogQueryHandler : IQueryHandler<Task<Result<Log>>, GetLastSuccessfulLogQuery>
   {
-    private readonly DataDbContext _dbContext;
+    private readonly DataAzureContext _dbContext;
 
-    public GetLastSuccessfulLogQueryHandler(DataDbContext dbContext)
+    public GetLastSuccessfulLogQueryHandler(DataAzureContext dbContext)
     {
       _dbContext = dbContext;
     }
@@ -23,7 +24,7 @@ namespace DataReader.DataAccess.Handlers.Logs
     {
       var logBase = await _dbContext.Logs
         .AsNoTracking()
-        .Where(r => r.SyncResult == Results.Succeed)
+        .Where(r => r.SyncResult == Results.Succeed.ToString())
         .OrderByDescending(r => r.LastSyncTime)
         .FirstOrDefaultAsync();
 
@@ -32,9 +33,13 @@ namespace DataReader.DataAccess.Handlers.Logs
         return Result.Failure<Log>(nameof(Log));
       }
 
-      Result<Log> log = Log.Create(new LogParam(logBase.Id!, logBase.LastSyncTime!, logBase.SyncResult!));
+      Result<Log> log = Log.Create(new LogParam(
+        DataReaderGuid.Create(logBase.Id.ToString()).Value,
+        AnalyticsUpdatedDate.Create(logBase.LastSyncTime!).Value,
+        (Results)Enum.Parse(typeof(Results), logBase.SyncResult!)
+      ));
 
-      return log;
+      return Result.Success(log.Value);
     }
   }
 }

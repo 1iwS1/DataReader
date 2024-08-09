@@ -6,6 +6,7 @@ using DataReader.Core.Shells;
 using DataReader.Core.Abstractions.Services.Parsers;
 using DataReader.Core.ValueObjects;
 using DataReader.Core.ValueObjects.User;
+using DataReader.Core.ValueObjects.Extensions;
 
 
 namespace DataReader.Application.ParseProcess
@@ -45,20 +46,28 @@ namespace DataReader.Application.ParseProcess
 
       foreach (var item in array)
       {
-        DataReaderGuid userSK = DataReaderGuid.Create(item["UserSK"].ToString()).Value;
-        DataReaderGuid userID = DataReaderGuid.Create(item["UserId"].ToString()).Value;
-        UserName userName = UserName.Create(item["UserName"].ToString()).Value;
-        UserEmail userEmail = UserEmail.Create(item["UserEmail"].ToString()).Value;
+        Result<DataReaderGuid> userSK = DataReaderGuid.Create(item["UserSK"].ToString()).Validate();
+        Result<DataReaderGuid> userID = DataReaderGuid.Create(item["UserId"].ToString()).Validate();
+        Result<UserName> userName = UserName.Create(item["UserName"].ToString()).Validate();
+        Result<UserEmail> userEmail = UserEmail.Create(item["UserEmail"].ToString()).Validate();
 
-        AnalyticsUpdatedDate analytics =
-          AnalyticsUpdatedDate.
-          Create(item["AnalyticsUpdatedDate"]).
-          Value;
+        Result<AnalyticsUpdatedDate> analytics = AnalyticsUpdatedDate
+          .Create(item["AnalyticsUpdatedDate"])
+          .Validate();
 
         string? gitHubUserId = item["GitHubUserId"].ToString();
         string? userType = item["UserType"].ToString();
 
-        UserParam param = new(userSK, userID, userName, userEmail, analytics, gitHubUserId, userType);
+        UserParam param = new(
+          userSK.Value, 
+          userID.Value, 
+          userName.Value, 
+          userEmail.Value, 
+          analytics.Value, 
+          gitHubUserId, 
+          userType
+        );
+
         temp.Add(param);
       }
 

@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using CSharpFunctionalExtensions;
+﻿using CSharpFunctionalExtensions;
 
 using DataReader.Core.Shells;
 using DataReader.Core.ValueObjects;

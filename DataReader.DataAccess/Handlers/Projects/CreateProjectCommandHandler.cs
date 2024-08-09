@@ -2,27 +2,27 @@
 
 using DataReader.Core.Abstractions.DALHandlers;
 using DataReader.Core.Commands.Projects;
-using DataReader.DataAccess.BaseModels;
+using DataReader.DataAccess.Models;
 
 namespace DataReader.DataAccess.Handlers.Projects
 {
   public class CreateProjectCommandHandler : ICommandHandler<Task<Result<bool>>, CreateProjectCommand>
   {
-    private readonly DataDbContext _dbContext;
+    private readonly DataAzureContext _dbContext;
 
-    public CreateProjectCommandHandler(DataDbContext dbContext)
+    public CreateProjectCommandHandler(DataAzureContext dbContext)
     {
       _dbContext = dbContext;
     }
 
     public async Task<Result<bool>> Handle(CreateProjectCommand command)
     {
-      var projectBase = new ProjectBase
+      var projectBase = new Project
       {
-        ProjectSK = command.project.ProjectSK,
-        ProjectID = command.project.ProjectID,
-        ProjectName = command.project.ProjectName,
-        AnalyticsUpdatedDate = command.project.AnalyticsUpdatedDate,
+        ProjectSk = (Guid)command.project.ProjectSK.CustomGuid!,
+        ProjectId = command.project.ProjectID.CustomGuid,
+        ProjectName = command.project.ProjectName.Name,
+        AnalyticsUpdatedDate = command.project.AnalyticsUpdatedDate.Date,
         ProjectVisibility = command.project.ProjectVisibility
       };
 

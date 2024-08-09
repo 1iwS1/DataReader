@@ -2,29 +2,29 @@
 
 using DataReader.Core.Abstractions.DALHandlers;
 using DataReader.Core.Commands.Users;
-using DataReader.DataAccess.BaseModels;
+using DataReader.DataAccess.Models;
 
 
 namespace DataReader.DataAccess.Handlers.Users
 {
   public class CreateUserCommandHandler : ICommandHandler<Task<Result<bool>>, CreateUserCommand>
   {
-    private readonly DataDbContext _dbContext;
+    private readonly DataAzureContext _dbContext;
 
-    public CreateUserCommandHandler(DataDbContext dbContext)
+    public CreateUserCommandHandler(DataAzureContext dbContext)
     {
       _dbContext = dbContext;
     }
 
     public async Task<Result<bool>> Handle(CreateUserCommand command)
     {
-      var userBase = new UserBase
+      var userBase = new User
       {
-        UserSK = command.user.UserSK,
-        UserId = command.user.UserId,
-        UserName = command.user.UserName,
-        UserEmail = command.user.UserEmail,
-        AnalyticsUpdatedDate = command.user.AnalyticsUpdatedDate,
+        UserSk = (Guid)command.user.UserSK.CustomGuid!,
+        UserId = command.user.UserId.CustomGuid.ToString(),
+        UserName = command.user.UserName.Name,
+        UserEmail = command.user.UserEmail.Email,
+        AnalyticsUpdatedDate = command.user.AnalyticsUpdatedDate.Date,
         GitHubUserId = command.user.GitHubUserId,
         UserType = command.user.UserType
       };

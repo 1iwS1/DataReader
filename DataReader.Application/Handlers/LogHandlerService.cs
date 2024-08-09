@@ -3,6 +3,7 @@
 using DataReader.Core.Abstractions.Services;
 using DataReader.Core.Abstractions.Services.Handlers;
 using DataReader.Core.Commands.Logs;
+using DataReader.Core.Models;
 using DataReader.Core.Queries.Logs;
 
 
@@ -17,7 +18,7 @@ namespace DataReader.Application.Handlers
       _logsService = logsService;
     }
 
-    public async Task<Result> Get(GetLastSuccessfulLogQuery query)
+    public async Task<Result<Log>> Get(GetLastSuccessfulLogQuery query)
     {
       return await _logsService.GetLastSuccessfulLog(query);
     }

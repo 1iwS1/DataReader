@@ -9,9 +9,9 @@ namespace DataReader.DataAccess.Handlers.Users
 {
   public class GetByIdUserQueryHandler : IQueryHandler<Task<Result<bool>>, GetByIdUserQuery>
   {
-    private readonly DataDbContext _dbContext;
+    private readonly DataAzureContext _dbContext;
 
-    public GetByIdUserQueryHandler(DataDbContext dbContext)
+    public GetByIdUserQueryHandler(DataAzureContext dbContext)
     {
       _dbContext = dbContext;
     }
@@ -20,7 +20,7 @@ namespace DataReader.DataAccess.Handlers.Users
     {
       var userBase = await _dbContext.Users
         .AsNoTracking()
-        .FirstOrDefaultAsync(u => u.UserId == query.id);
+        .FirstOrDefaultAsync(u => u.UserId == query.id.CustomGuid.ToString());
 
       if (userBase == null)
       {
