@@ -8,12 +8,6 @@ using DataReader.DataAccess;
 using DataReader.ExternalAPI.DependencyInjection;
 using DataReader.ExternalAPI.Scheduler;
 using DataReader.ExternalAPI.Properties.Configs.ClassConfigs;
-using DataReader.Core.Models;
-using DataReader.Core.Shells;
-using DataReader.Core.ValueObjects;
-using DataReader.Core.ValueObjects.Extensions;
-using DataReader.Core.ValueObjects.User;
-using CSharpFunctionalExtensions;
 
 
 HostApplicationBuilder builder = Host.CreateApplicationBuilder();

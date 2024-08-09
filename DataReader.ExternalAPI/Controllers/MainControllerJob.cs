@@ -2,11 +2,11 @@
 using CSharpFunctionalExtensions;
 using Quartz;
 
+using DataReader.ExternalAPI.Properties.Configs.ClassConfigs;
+using DataReader.Core.ValueObjects;
 using DataReader.Core.Models;
 using DataReader.Core.Shells;
-using DataReader.Core.ValueObjects;
 using DataReader.Core.Enums;
-using DataReader.ExternalAPI.Properties.Configs.ClassConfigs;
 
 
 namespace DataReader.ExternalAPI.Controllers

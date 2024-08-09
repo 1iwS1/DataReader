@@ -1,12 +1,10 @@
 ﻿using CSharpFunctionalExtensions;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using System.Net.Http.Headers;
 using System.Text;
 
 using DataReader.Core.Abstractions.Services.Handlers;
-using DataReader.Core.Contracts.Params;
+using DataReader.ExternalAPI.Controllers.Common;
 using DataReader.ExternalAPI.Properties;
+using DataReader.Core.Contracts.Params;
 
 
 namespace DataReader.ExternalAPI.Controllers
@@ -37,27 +35,7 @@ namespace DataReader.ExternalAPI.Controllers
           query.AppendLine(column + ", ");
         }
 
-        string link = $"https://analytics.dev.azure.com/KAPPASTAR-IT/_odata/v3.0/" + query;
-
-        using (HttpClient client = new HttpClient())
-        {
-          client.DefaultRequestHeaders.Accept.Add(
-             new MediaTypeWithQualityHeaderValue("application/json"));
-
-          client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
-              Convert.ToBase64String(
-                  ASCIIEncoding.ASCII.GetBytes(
-                      string.Format("{0}:{1}", "", pat))));
-
-          using (HttpResponseMessage response = client.GetAsync(link).Result)
-          {
-            response.EnsureSuccessStatusCode();
-            string responseBody = await response.Content.ReadAsStringAsync();
-            result = JToken.Parse(responseBody).ToString(Formatting.Indented);
-
-            //Console.WriteLine(result);
-          }
-        }
+        result = await HttpSender.GetFromAzure(query.ToString(), pat);
 
         return await DoWorkItemsParsing(result);
       }
