@@ -26,7 +26,7 @@ namespace DataReader.ExternalAPI.Controllers
         string filter = "?$select=*";
         StringBuilder query = new StringBuilder($"{dataObject}{filter}");
 
-        result = await HttpSender.GetFromAzure(query.ToString(), pat);
+        result = await AzureClient.GetFromAzure(query.ToString(), pat);
 
         return await DoProjectsParsing(result);
       }

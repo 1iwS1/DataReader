@@ -35,7 +35,7 @@ namespace DataReader.ExternalAPI.Controllers
           query.AppendLine(column + ", ");
         }
 
-        result = await HttpSender.GetFromAzure(query.ToString(), pat);
+        result = await AzureClient.GetFromAzure(query.ToString(), pat);
 
         return await DoWorkItemsParsing(result);
       }

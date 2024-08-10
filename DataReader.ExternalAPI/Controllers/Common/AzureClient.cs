@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DataReader.ExternalAPI.Controllers.Common
 {
-  public static class HttpSender
+  public static class AzureClient
   {
     public static async Task<string> GetFromAzure(string query, string pat)
     {

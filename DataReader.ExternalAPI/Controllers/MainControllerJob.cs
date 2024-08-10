@@ -12,17 +12,17 @@ using DataReader.Core.Enums;
 namespace DataReader.ExternalAPI.Controllers
 {
   public class MainControllerJob(
-      LogController logController,
-      UserController userController,
-      ProjectController projectController,
-      WorkItemController workItemController,
+      LogController _logController,
+      UserController _userController,
+      ProjectController _projectController,
+      WorkItemController _workItemController,
       IOptions<Secrets> options
       ) : IJob
   {
-    private readonly LogController _logController = logController;
-    private readonly UserController _userController = userController;
-    private readonly ProjectController _projectController = projectController;
-    private readonly WorkItemController _workItemController = workItemController;
+    //private readonly LogController _logController = logController;
+    //private readonly UserController _userController = userController;
+    //private readonly ProjectController _projectController = projectController;
+    //private readonly WorkItemController _workItemController = workItemController;
 
     private readonly Secrets secrets = options.Value;
 
