@@ -7,7 +7,7 @@ using DataReader.Core.Queries.WorkItems;
 
 namespace DataReader.DataAccess.Handlers.WorkItems
 {
-    public class GetByIdWorkItemQueryHandler : IQueryHandler<Task<Result<bool>>, GetByIdWorkItemQuery>
+  public class GetByIdWorkItemQueryHandler : IQueryHandler<Task<Result<bool>>, GetByIdWorkItemQuery>
   {
     private readonly DataAzureContext _dbContext;
 

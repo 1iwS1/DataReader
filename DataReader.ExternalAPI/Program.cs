@@ -12,13 +12,14 @@ using DataReader.ExternalAPI.Properties.Configs.ClassConfigs;
 
 HostApplicationBuilder builder = Host.CreateApplicationBuilder();
 
-string absolutePath = "C:\\Users\\Максим\\OneDrive\\Рабочий стол\\Работа\\Project\\" +
-    "DataReader\\DataReader.ExternalAPI\\Properties\\Configs\\";
+//string absolutePath = "C:\\Users\\Максим\\OneDrive\\Рабочий стол\\Работа\\Project\\" +
+//    "DataReader\\DataReader.ExternalAPI\\Properties\\Configs\\";
 
 builder.Configuration
-  .AddJsonFile($"{absolutePath}appsettings.json", true, true)
-  .AddJsonFile($"{absolutePath}secrets.json", true, true)
-  .AddJsonFile($"{absolutePath}connect.json", true, true);
+  .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "..\\..\\..\\"))
+  .AddJsonFile("Properties\\Configs\\appsettings.json", true, true)
+  .AddJsonFile("Properties\\Configs\\secrets.json", true, true)
+  .AddJsonFile("Properties\\Configs\\connect.json", true, true);
 
 builder.Services.Configure<Secrets>(
   builder.Configuration.GetSection(
@@ -31,7 +32,8 @@ var intervalOptions = builder.Configuration.GetSection(nameof(IntervalForSynchro
   .Get<IntervalForSynchronisation>();
 
 builder.Services
-  .AddDbContext<DataAzureContext>(options => options.UseSqlServer(connectionOptions!.SqlServerConnection))
+  .AddDbContext<DataAzureContext>(options =>
+    options.UseSqlServer(connectionOptions!.SqlServerConnection))
   .AddQuartz()
   .AddQuartzHostedService(q =>
   {
